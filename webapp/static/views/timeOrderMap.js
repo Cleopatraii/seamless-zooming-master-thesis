@@ -38,6 +38,17 @@ import { defineLinkVertical, defineLinkBezier } from '../vizmodules/linkCalculat
 import { buildCases, discoverContextCandidates, topKMetrics, jaccardOverlap } from '../utils/contextFeatures.mjs';
 import { initTimeLens } from "../utils/timeLens.mjs";
 
+let persistedXZoomTransform = d3.zoomIdentity;
+
+function resetPersistedXZoom() {
+    persistedXZoomTransform = d3.zoomIdentity;
+}
+
+function parseOptionalDay(value) {
+    if (value === "" || value == null) return null;
+    const parsedValue = Number(value);
+    return Number.isFinite(parsedValue) ? parsedValue : null;
+}
 
 // == MAIN GRAPH DRAWING FUNCTION ==
 function TIMEORDERMAP(csvdata) {
@@ -75,18 +86,61 @@ function TIMEORDERMAP(csvdata) {
     };
 
 
+    const isPreparedGraphPayload = Boolean(
+        csvdata &&
+        csvdata.graphData &&
+        Array.isArray(csvdata.graphData.nodes) &&
+        Array.isArray(csvdata.graphData.edges)
+    );
+
+    const sourceRows = isPreparedGraphPayload ? (csvdata.rawRows ?? csvdata.graphData.nodes) : csvdata;
     console.info("csvdata :")
     console.log(csvdata)
     // Create graph data set
-    const data = convertLogtoGraph(csvdata, caseAccessor, timeAccessor, actAccessor, idAccessor);
+    const data = isPreparedGraphPayload
+        ? csvdata.graphData
+        : convertLogtoGraph(csvdata, caseAccessor, timeAccessor, actAccessor, idAccessor);
 
     const fullGraph = data;
     const fullNodes = nodes(fullGraph);
     const fullEdges = edges(fullGraph);
 
     // Data processing
-    let activities = getUniqueValues(nodes(data), actAccessor);
-    const xScale = SCALE.linear(d3.extent(nodes(data), timeAccessor), dimensions, { vertical: false });
+    let activities = csvdata?.meta?.activityDomain?.length
+        ? csvdata.meta.activityDomain
+        : getUniqueValues(nodes(data), actAccessor);
+    const dayToDate = (day) => new Date(day * 24 * 60 * 60 * 1000);
+    const dateToDay = (date) => date.getTime() / (24 * 60 * 60 * 1000);
+    const rawXDomainDays = d3.extent(nodes(data), timeAccessor);
+    const graphFilters = csvdata?.meta?.graphFilters ?? {};
+    const requestedXStartDays = parseOptionalDay(graphFilters.timeStartDays);
+    const requestedXEndDays = parseOptionalDay(graphFilters.timeEndDays);
+    const rawXSpanDays = Math.max(rawXDomainDays[1] - rawXDomainDays[0], 1 / (24 * 60));
+    const xDomainPaddingDays = Math.max(rawXSpanDays * 0.03, 10 / (24 * 60));
+    const paddedXDomainDays = [
+        rawXDomainDays[0] - xDomainPaddingDays,
+        rawXDomainDays[1] + xDomainPaddingDays,
+    ];
+    const hasValidRequestedXDomain = (
+        requestedXStartDays != null &&
+        requestedXEndDays != null &&
+        requestedXEndDays > requestedXStartDays
+    );
+    const xDomainDays = hasValidRequestedXDomain
+        ? [requestedXStartDays, requestedXEndDays]
+        : [
+            requestedXStartDays ?? paddedXDomainDays[0],
+            requestedXEndDays ?? paddedXDomainDays[1],
+        ];
+    const xPlotPadding = 14;
+    const xTimeScaleBase = d3.scaleUtc()
+        .domain(xDomainDays.map(dayToDate))
+        .range([xPlotPadding, dimensions.ctrWidth - xPlotPadding]);
+    let xTimeScale = xTimeScaleBase.copy();
+    const xScale = (day) => xTimeScale(dayToDate(day));
+    xScale.invert = (pixel) => dateToDay(xTimeScale.invert(pixel));
+    xScale.domain = () => xTimeScale.domain().map(dateToDay);
+    xScale.range = () => xTimeScale.range();
     const yScale = SCALE.categories(activities, dimensions);
 
     console.log(nodes(data))
@@ -101,6 +155,15 @@ function TIMEORDERMAP(csvdata) {
     // Create marker points for arrowheads
     defineArrowHeads(svg);
 
+    svg.append("defs")
+        .append("clipPath")
+        .attr("id", "plot-area-clip")
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", dimensions.ctrWidth)
+        .attr("height", dimensions.ctrHeight);
+
     // Draw container
     const ctr = svg.append("g")
         .attr(
@@ -108,16 +171,58 @@ function TIMEORDERMAP(csvdata) {
             `translate(${dimensions.margin.left}, ${dimensions.margin.top})`
         )
 
+    ctr.append("rect")
+        .attr("class", "x-zoom-capture")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", dimensions.ctrWidth)
+        .attr("height", dimensions.ctrHeight)
+        .style("fill", "transparent")
+        .style("pointer-events", "all");
+
     // Draw edges for instance graph
     const linkInstance = defineLinkVertical(xScale, yScale);
     const linkBundled = defineLinkBezier(xScale, yScale);
 
+    function formatRelativeTimeTick(date) {
+        const day = dateToDay(date);
+        const [d0, d1] = xScale.domain();
+        const spanDays = Math.abs(d1 - d0);
+        const sign = day < 0 ? "−" : "";
+        if (spanDays > 3) {
+            return `${sign}D${Math.floor(Math.abs(day))}`;
+        }
+        const absoluteSeconds = Math.round(Math.abs(day) * 24 * 60 * 60);
+        const dayIndex = Math.floor(absoluteSeconds / 86400);
+        const secondsInDay = absoluteSeconds % 86400;
+        const hours = Math.floor(secondsInDay / 3600);
+        const minutes = Math.floor((secondsInDay % 3600) / 60);
+        const seconds = secondsInDay % 60;
+        const hh = String(hours).padStart(2, "0");
+        const mm = String(minutes).padStart(2, "0");
+        const ss = String(seconds).padStart(2, "0");
+        return spanDays > (1 / 24)
+            ? `${sign}D${dayIndex} ${hh}:${mm}`
+            : `${sign}D${dayIndex} ${hh}:${mm}:${ss}`;
+    }
+
+    function getRelativeTimeTickCount() {
+        const [d0, d1] = xScale.domain();
+        const spanDays = Math.abs(d1 - d0);
+        if (spanDays > 20) return 8;
+        if (spanDays > 3) return 9;
+        if (spanDays > (1 / 24)) return 7;
+        return 6;
+    }
+
     // == AXES ==
     // Draw x-axis
-    drawAxis(ctr, xScale, 'bottom', dimensions, {
+    const xAxisGroup = drawAxis(ctr, xTimeScale, 'bottom', dimensions, {
         className: 'x-axis',
         axisLabel: 'Relative time (in days)',
         labelDistance: -10,
+        ticks: getRelativeTimeTickCount(),
+        tickFormat: formatRelativeTimeTick,
         });
 
     // Draw y-axis
@@ -153,7 +258,7 @@ function TIMEORDERMAP(csvdata) {
     // ============= topK: base on context ==============
 
     // prepare cases
-    const cases = buildCases(csvdata);
+    const cases = buildCases(sourceRows);
 
     //============================ADVANCED===============================
     // Strategy2 Score3 (Not used)： Contour line coverage
@@ -217,7 +322,7 @@ function TIMEORDERMAP(csvdata) {
 
     //=============================BASIC=================================
     // prepare cases
-    const casesSimple = buildCases(nodes(data));
+    const casesSimple = buildCases(sourceRows);
 
     // function simpleCaseScore(c) {
     //   // Map the bucket to score
@@ -777,57 +882,134 @@ function TIMEORDERMAP(csvdata) {
     }
 
     renderInstanceGraph(data, linkInstance, ctr, timeAccessor, xScale, actAccessor, yScale);
+    ctr.selectAll(".instance-graph").attr("clip-path", "url(#plot-area-clip)");
 
-    const lens = initTimeLens({
-      root: d3.select("#chart"),
-      plotG: ctr,
-      plotWidth: dimensions.ctrWidth,
-      plotHeight: dimensions.ctrHeight,
+    function isPointerInPlot(event) {
+        const [px, py] = d3.pointer(event, ctr.node());
+        return px >= 0 && px <= dimensions.ctrWidth && py >= 0 && py <= dimensions.ctrHeight;
+    }
 
-      xScale,
-      yScale,
-      timeAccessor,
-      actAccessor,
+    function updateXZoom(transform) {
+        persistedXZoomTransform = transform;
+        xTimeScale = transform.rescaleX(xTimeScaleBase);
+        xAxisGroup.call(
+            d3.axisBottom(xTimeScale)
+                .ticks(getRelativeTimeTickCount())
+                .tickFormat(formatRelativeTimeTick)
+                .tickSizeOuter(0)
+        );
 
-        data: fullNodes,
+        ctr.selectAll(".instance-node-group")
+            .attr("transform", d => `translate(${xScale(timeAccessor(d))},${yScale(actAccessor(d))})`);
 
-        toGraph: (winNodes) => {
-        // If Top-K is enabled: Only retain nodes belonging to the Top-K
-        const nodesFiltered = activeTopKCaseSet
-          ? winNodes.filter(d => activeTopKCaseSet.has(caseAccessor(d)))
-          : winNodes;
+        ctr.selectAll(".instance-edge")
+            .attr("d", linkInstance);
+    }
 
-        const keep = new Set(nodesFiltered.map(idAccessor));// keep node ids
-
-        //keep edges where both endpoints are visible (+ Top-K filter if enabled)
-        const edgesFiltered = fullEdges.filter(e => {
-          if (!keep.has(e.source) || !keep.has(e.target)) return false;
-          if (activeTopKCaseSet) return activeTopKCaseSet.has(e.entity);
-          return true;
+    const xZoom = d3.zoom()
+        .scaleExtent([1, 200000])
+        .extent([[0, 0], [dimensions.ctrWidth, dimensions.ctrHeight]])
+        .translateExtent([[0, 0], [dimensions.ctrWidth, dimensions.ctrHeight]])
+        .filter((event) => {
+            if (!isPointerInPlot(event)) return false;
+            if (event.type === "wheel") return true;
+            if (event.type === "mousedown") return event.button === 0 && !event.shiftKey;
+            return true;
+        })
+        .on("zoom", (event) => {
+            updateXZoom(event.transform);
         });
 
-        return { graph: fullGraph.graph, nodes: nodesFiltered, edges: edgesFiltered };
-      },
+    ctr.call(xZoom);
 
-      renderInstance: (insetG, graphData, linkFn, insetX, insetY) => {
-        renderInstanceGraph(graphData, linkFn, insetG, timeAccessor, insetX, actAccessor, insetY);
-      },
-        overlayPadLeft: dimensions.margin.left,
-        getTopKState: () => topKState,
+    if (persistedXZoomTransform && persistedXZoomTransform !== d3.zoomIdentity) {
+        ctr.call(xZoom.transform, persistedXZoomTransform);
+    }
+
+    d3.select("#button-reset-x-zoom")
+        .on("click.zoom", null)
+        .on("click.zoom", () => {
+            persistedXZoomTransform = d3.zoomIdentity;
+            ctr.transition()
+                .duration(180)
+                .call(xZoom.transform, d3.zoomIdentity);
+        });
+
+    const windowUnitToDays = {
+        days: 1,
+        hours: 1 / 24,
+        minutes: 1 / (24 * 60),
+        seconds: 1 / (24 * 60 * 60),
+    };
+
+    function getLensWindowUnit() {
+        return document.getElementById("lens-window-unit")?.value ?? "days";
+    }
+
+    function getLensWindowDays() {
+        const input = document.getElementById("lens-window");
+        const value = Number(input?.value ?? 4);
+        const unit = getLensWindowUnit();
+        if (!Number.isFinite(value) || value <= 0) return null;
+        return value * (windowUnitToDays[unit] ?? 1);
+    }
+
+    const lens = initTimeLens({
+          root: d3.select("#chart"),
+          plotG: ctr,
+          plotWidth: dimensions.ctrWidth,
+          plotHeight: dimensions.ctrHeight,
+
+          xScale,
+          yScale,
+          timeAccessor,
+          actAccessor,
+
+            data: fullNodes,
+
+            toGraph: (winNodes) => {
+            // If Top-K is enabled: Only retain nodes belonging to the Top-K
+            const nodesFiltered = activeTopKCaseSet
+              ? winNodes.filter(d => activeTopKCaseSet.has(caseAccessor(d)))
+              : winNodes;
+
+            const keep = new Set(nodesFiltered.map(idAccessor));// keep node ids
+
+            //keep edges where both endpoints are visible (+ Top-K filter if enabled)
+            const edgesFiltered = fullEdges.filter(e => {
+              if (!keep.has(e.source) || !keep.has(e.target)) return false;
+              if (activeTopKCaseSet) return activeTopKCaseSet.has(e.entity);
+              return true;
+            });
+
+            return { graph: fullGraph.graph, nodes: nodesFiltered, edges: edgesFiltered };
+          },
+
+          renderInstance: (insetG, graphData, linkFn, insetX, insetY) => {
+            renderInstanceGraph(graphData, linkFn, insetG, timeAccessor, insetX, actAccessor, insetY);
+          },
+            overlayPadLeft: dimensions.margin.left,
+            getTopKState: () => topKState,
+            getWindowUnit: getLensWindowUnit,
     });
 
-    lens.setWindowHalf(2);
+    lens.setWindowHalf(getLensWindowDays() ?? 4);
 
-    //  User-input total width
+    function updateLensWindow() {
+        const fullWindowDays = getLensWindowDays();
+        if (fullWindowDays == null) return;
+        lens.setWindowHalf(fullWindowDays);
+    }
+
     d3.select("#lens-window")
         .on("input.lens", null)
-        .on("input.lens", function () {
-          const full = +this.value;
-          if (!Number.isFinite(full) || full <= 0) return;
-          lens.setWindowHalf(full / 2);
-    });
+        .on("input.lens", updateLensWindow);
+
+    d3.select("#lens-window-unit")
+        .on("change.lens", null)
+        .on("change.lens", updateLensWindow);
 
     console.log("end")
 };
 
-export { TIMEORDERMAP };
+export { TIMEORDERMAP, resetPersistedXZoom };

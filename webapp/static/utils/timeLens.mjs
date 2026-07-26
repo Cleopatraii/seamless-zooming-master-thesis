@@ -23,7 +23,8 @@ function initTimeLens(cfg) {
     insetWidth = 420,
     insetHeight = 260,
     onWindowChange = null,
-    getTopKState = null
+    getTopKState = null,
+    getWindowUnit = null,
   } = cfg;
 
   if (!root || !plotG) throw new Error("initTimeLens: root and plotG are required");
@@ -145,7 +146,7 @@ function initTimeLens(cfg) {
 
   // overlay captures mouse events in plot coordinates
   const overlay = plotG
-    .append("rect")
+    .insert("rect", ":first-child")
     .attr("class", "time-lens-overlay")
     .attr("x", -overlayPadLeft)
     .attr("y", 0)
@@ -177,10 +178,45 @@ function initTimeLens(cfg) {
     panel.style("display", "none");
   }
 
+  const unitConfig = {
+    days: { suffix: "d" },
+    hours: { suffix: "h" },
+    minutes: { suffix: "m" },
+    seconds: { suffix: "s" },
+  };
+
+  function currentUnitConfig() {
+    const unit = typeof getWindowUnit === "function" ? getWindowUnit() : "days";
+    return unitConfig[unit] ?? unitConfig.days;
+  }
+
+  function formatTimeValue(days) {
+    const unit = typeof getWindowUnit === "function" ? getWindowUnit() : "days";
+    if (unit === "days") {
+      return `${Number(days.toFixed(2))}d`;
+    }
+
+    const sign = days < 0 ? "-" : "";
+    const absoluteSeconds = Math.round(Math.abs(days) * 24 * 60 * 60);
+    const dayIndex = Math.floor(absoluteSeconds / 86400);
+    const secondsInDay = absoluteSeconds % 86400;
+    const hours = Math.floor(secondsInDay / 3600);
+    const minutes = Math.floor((secondsInDay % 3600) / 60);
+    const seconds = secondsInDay % 60;
+    const hh = String(hours).padStart(2, "0");
+    const mm = String(minutes).padStart(2, "0");
+    const ss = String(seconds).padStart(2, "0");
+
+    if (unit === "seconds") {
+      return `${sign}D${dayIndex} ${hh}:${mm}:${ss}`;
+    }
+    return `${sign}D${dayIndex} ${hh}:${mm}`;
+  }
+
   function setTitleText(t0, t1, isPinned) {
 
     const tag = isPinned ? "Pinned" : "Hover";
-    title.text(`${tag} window: [${t0.toFixed(2)}d, ${t1.toFixed(2)}d]`);
+    title.text(`${tag} window: [${formatTimeValue(t0)}, ${formatTimeValue(t1)}]`);
   }
 
   // events within [t0, t1] (inclusive)
@@ -190,6 +226,23 @@ function initTimeLens(cfg) {
       const t = timeAccessor(d);
       return t >= t0 && t <= t1;
     });
+  }
+
+  function nearestEventTime(targetTime) {
+    let bestTime = targetTime;
+    let bestDistance = Infinity;
+
+    data.forEach((event) => {
+      const eventTime = timeAccessor(event);
+      if (!Number.isFinite(eventTime)) return;
+      const distance = Math.abs(eventTime - targetTime);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestTime = eventTime;
+      }
+    });
+
+    return bestTime;
   }
 
   function renderWindow(t0, t1, isPinned) {
@@ -238,7 +291,7 @@ function initTimeLens(cfg) {
     // x-axis at bottom
     axesG.append("g")
       .attr("transform", `translate(0,${insetInnerHeight})`)//Move the x-axis to the bottom
-      .call(d3.axisBottom(insetXScale).ticks(5).tickSizeOuter(0));
+      .call(d3.axisBottom(insetXScale).ticks(5).tickFormat(formatTimeValue).tickSizeOuter(0));
 
     // y-axis: only activities that appear in this window
     const insetGraphData = toGraph(events);
@@ -314,7 +367,8 @@ function initTimeLens(cfg) {
 
     mx = Math.max(0, Math.min(plotWidth, mx));
 
-    const t = xScale.invert(mx); // Pixel to day-coordinate conversion
+    const rawTime = xScale.invert(mx); // Pixel to day-coordinate conversion
+    const t = nearestEventTime(rawTime);
     const t0 = t - windowHalf;
     const t1 = t + windowHalf;
 

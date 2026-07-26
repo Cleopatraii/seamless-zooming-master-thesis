@@ -38,9 +38,72 @@
     <div id="graph-section">
          <div id="chart-top-controls" class="chart-top-controls">
             <label for="lens-window">Hover window:</label>
-            <input id="lens-window" type="number" min="0.1" step="0.5" value="4">
-            <span class="hint">days</span>
+            <input id="lens-window" type="number" min="0.001" step="1" value="4">
+            <select id="lens-window-unit" aria-label="Hover window unit">
+                <option value="days" selected>days</option>
+                <option value="hours">hours</option>
+                <option value="minutes">minutes</option>
+                <option value="seconds">seconds</option>
+            </select>
+            <button type="button" id="button-reset-x-zoom">Reset Zoom</button>
+            <div id="instance-navigator" class="instance-navigator">
+                <button type="button" id="button-previous-instance">Previous</button>
+                <button type="button" id="button-browse-instances">Browse Instances</button>
+                <button type="button" id="button-next-instance">Next</button>
+                <span id="current-instance-summary" class="current-instance-summary"></span>
+            </div>
          </div>
+        <div id="instance-browser-panel" class="instance-browser-panel hidden">
+            <div class="instance-browser-card">
+                <div class="instance-browser-header">
+                    <div>
+                        <h3>Instance Overview</h3>
+                        <p>Browse application-centered process instances before loading one into the Time-Order Map.</p>
+                    </div>
+                    <button type="button" id="button-close-instance-browser">Close</button>
+                </div>
+                <div class="instance-browser-toolbar">
+                    <label for="instance-sort-select">Sort by</label>
+                    <select id="instance-sort-select">
+                        <option value="event_count" selected>Event count</option>
+                        <option value="df_edge_count">DF edge count</option>
+                        <option value="offer_count">Offer count</option>
+                        <option value="start_time">Start time</option>
+                    </select>
+                    <select id="instance-order-select">
+                        <option value="desc" selected>Descending</option>
+                        <option value="asc">Ascending</option>
+                    </select>
+                </div>
+                <div class="instance-browser-filters">
+                    <label>
+                        Application ID contains
+                        <input type="text" id="instance-application-search" placeholder="Application_...">
+                    </label>
+                    <label>
+                        Min events
+                        <input type="number" id="instance-min-events" min="0" step="1" placeholder="0">
+                    </label>
+                    <label>
+                        Min offers
+                        <input type="number" id="instance-min-offers" min="0" step="1" placeholder="0">
+                    </label>
+                    <label class="instance-filter-checkbox">
+                        <input type="checkbox" id="instance-only-cancelled">
+                        Only cancelled
+                    </label>
+                    <button type="button" id="button-apply-instance-filters">Apply filters</button>
+                    <button type="button" id="button-clear-instance-filters">Clear</button>
+                </div>
+                <div id="instance-browser-status" class="instance-browser-status"></div>
+                <div id="instance-browser-table" class="instance-browser-table"></div>
+                <div class="instance-browser-pagination">
+                    <button type="button" id="button-instance-page-prev">Previous page</button>
+                    <span id="instance-page-status"></span>
+                    <button type="button" id="button-instance-page-next">Next page</button>
+                </div>
+            </div>
+        </div>
         <div id="chart"></div>
         <div class="slider-abstraction">
             <div class="slider-abstraction-container">
@@ -72,6 +135,52 @@
         </div>-->
 
         <div id="parameters-graph">
+            <div id="multi-entity-panel" class="param-group" style="display:none;">
+                <h3>Multi-Entity Prototype</h3>
+                <div class="multi-entity-controls">
+                    <button type="button" id="button-scope-local">Show Local</button>
+                    <button type="button" id="button-show-all-perspectives">Show All Perspectives</button>
+                    <button type="button" id="button-reset-expanded-entities">Reset Expansions</button>
+                </div>
+                <div id="multi-entity-status" class="multi-entity-status"></div>
+                <div class="detail-section-title">Graph filters</div>
+                <div class="multi-entity-graph-filters">
+                    <label>
+                        Activity type
+                        <select id="graph-filter-activity-prefix">
+                            <option value="">All activity types</option>
+                            <option value="A_">Application activities (A_)</option>
+                            <option value="O_">Offer activities (O_)</option>
+                            <option value="W_">Workflow activities (W_)</option>
+                        </select>
+                    </label>
+                    <label>
+                        Activity contains
+                        <input type="text" id="graph-filter-activity" placeholder="e.g. Offer, Cancelled">
+                    </label>
+                    <div class="graph-filter-time-row">
+                        <label>
+                            From day
+                            <input type="number" id="graph-filter-time-start" step="0.01" placeholder="0">
+                        </label>
+                        <label>
+                            To day
+                            <input type="number" id="graph-filter-time-end" step="0.01" placeholder="30">
+                        </label>
+                    </div>
+                    <div class="graph-filter-actions">
+                        <button type="button" id="button-apply-graph-filters">Apply graph filters</button>
+                        <button type="button" id="button-clear-graph-filters">Clear</button>
+                    </div>
+                </div>
+                <div class="detail-section-title">Event details</div>
+                <div id="multi-entity-details"></div>
+                <div class="detail-section-title">Legend</div>
+                <div id="multi-entity-legend"></div>
+                <div class="detail-section-title">Expanded entities</div>
+                <div id="multi-entity-selected"></div>
+            </div>
+
             <h3>Element transitions:</h3>
             <div class="param-group">
                 <div class="option-switcher" id="toggle-group-opacity">

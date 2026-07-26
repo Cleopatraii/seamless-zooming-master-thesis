@@ -92,6 +92,10 @@ function defineSuperEdges(edges, superNodes, allNodes, xAccessor, yAccessor, lev
         const sourceNode = nodeById.get(sourceId);
         const targetNode = nodeById.get(targetId);
 
+        if (!sourceNode || !targetNode) {
+            continue;
+        }
+
         const source_coordinates = Number.isFinite(sourceNode?.x?.mean) // (0 should not return nan) //old: sourceNode.x?.mean 
             ? [sourceNode.x.mean, sourceNode.y]
             : [xAccessor(sourceNode), yAccessor(sourceNode)];

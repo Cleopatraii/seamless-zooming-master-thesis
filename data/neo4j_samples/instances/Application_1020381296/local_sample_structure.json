@@ -1,0 +1,579 @@
+{
+  "mode": "local",
+  "anchor": {
+    "entityType": "Application",
+    "entityId": "Application_1020381296"
+  },
+  "selectedPerspectives": [
+    "Offer",
+    "Workflow"
+  ],
+  "memberships": [
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_2",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_29",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_120",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_118",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    }
+  ],
+  "dfEdges": [
+    {
+      "source_event_id": "Application_1020381296",
+      "source_activity": "A_Create Application",
+      "source_timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "target_event_id": "ApplState_166443712",
+      "target_activity": "A_Submitted",
+      "target_timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Application_1020381296",
+      "source_activity": "A_Create Application",
+      "source_timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "target_event_id": "ApplState_166443712",
+      "target_activity": "A_Submitted",
+      "target_timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_166443712",
+      "source_activity": "A_Submitted",
+      "source_timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "target_event_id": "ApplState_638918273",
+      "target_activity": "A_Concept",
+      "target_timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_638918273",
+      "source_activity": "A_Concept",
+      "source_timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "target_event_id": "ApplState_587379163",
+      "target_activity": "A_Accepted",
+      "target_timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_587379163",
+      "source_activity": "A_Accepted",
+      "source_timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "target_event_id": "ApplState_1934583238",
+      "target_activity": "A_Complete",
+      "target_timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1934583238",
+      "source_activity": "A_Complete",
+      "source_timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "target_event_id": "ApplState_1016719443",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1016719443",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "target_event_id": "ApplState_1013397422",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1013397422",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "target_event_id": "ApplState_2023238399",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_2023238399",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "target_event_id": "ApplState_538328654",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_538328654",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "target_event_id": "ApplState_137276567",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_137276567",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "target_event_id": "ApplState_2086660290",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_2086660290",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "target_event_id": "ApplState_71827612",
+      "target_activity": "A_Pending",
+      "target_timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    }
+  ]
+}

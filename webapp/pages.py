@@ -23,12 +23,17 @@ import csv
 import sys
 import io
 import os
+import json
 import pandas as pd
 import tempfile
 from flask import Blueprint, render_template, request, jsonify
 from pathlib import Path
 from src.utils.data_importing import load_event_log_from_tempfile
 from src.orchestrator import process_log_for_d3js
+from src.integrations.neo4j_queries import (
+    build_anchor_application_sample_payload,
+    fetch_application_instance_summaries,
+)
 
 # App directory
 project_root = Path(__file__).resolve().parent.parent
@@ -52,6 +57,116 @@ def get_data():
         reader = csv.DictReader(f)
         data = list(reader)
     return jsonify(data)
+
+
+@bp.route('/api/multi_entity_sample/<mode>')
+def get_multi_entity_sample(mode):
+    sample_paths = {
+        "local": project_root / 'data' / 'neo4j_samples' / 'instances' / 'Application_180427873' / 'local_sample_structure.json',
+        "expanded": project_root / 'data' / 'neo4j_samples' / 'instances' / 'Application_180427873' / 'expanded_sample_structure.json',
+    }
+    sample_path = sample_paths.get(mode)
+    if sample_path is None:
+        return jsonify({'error': f'Unknown mode: {mode}'}), 400
+    if not sample_path.exists():
+        return jsonify({'error': f'Sample file not found for mode: {mode}'}), 404
+    return jsonify(json.loads(sample_path.read_text(encoding='utf-8')))
+
+
+MULTI_ENTITY_INSTANCES = [
+    {
+        "id": "Application_180427873",
+        "label": "Instance 1: small",
+        "description": "20 events, 33 DF edges, 1 offer",
+    },
+    {
+        "id": "Application_1389621581",
+        "label": "Instance 2: medium",
+        "description": "41 events, 69 DF edges, 1 offer",
+    },
+    {
+        "id": "Application_1020381296",
+        "label": "Instance 3: complex",
+        "description": "81 events, 141 DF edges, 2 offers",
+    },
+]
+
+
+@bp.route('/api/multi_entity_instances')
+def get_multi_entity_instances():
+    """Return one page of application-centered prototype instances."""
+    page = request.args.get("page", 1, type=int)
+    page_size = request.args.get("page_size", 20, type=int)
+    sort = request.args.get("sort", "event_count", type=str)
+    order = request.args.get("order", "desc", type=str)
+    application_search = request.args.get("application_search", "", type=str)
+    min_events = request.args.get("min_events", 0, type=int)
+    min_offers = request.args.get("min_offers", 0, type=int)
+    only_cancelled = request.args.get("only_cancelled", "false", type=str).lower() == "true"
+
+    try:
+        return jsonify(fetch_application_instance_summaries(
+            page=page,
+            page_size=page_size,
+            sort=sort,
+            order=order,
+            application_search=application_search,
+            min_events=min_events,
+            min_offers=min_offers,
+            only_cancelled=only_cancelled,
+        ))
+    except Exception as exc:
+        # Keep the demo usable when Neo4j is not running; the browser can still
+        # navigate through the pre-exported examples.
+        return jsonify({
+            "page": 1,
+            "pageSize": len(MULTI_ENTITY_INSTANCES),
+            "total": len(MULTI_ENTITY_INSTANCES),
+            "sort": "event_count",
+            "order": "asc",
+            "instances": [
+                {
+                    "id": instance["id"],
+                    "label": instance["label"],
+                    "description": instance["description"],
+                }
+                for instance in MULTI_ENTITY_INSTANCES
+            ],
+            "warning": str(exc),
+        })
+
+
+@bp.route('/api/multi_entity_sample/<application_id>/<mode>')
+def get_multi_entity_instance_sample(application_id, mode):
+    sample_paths = {
+        "local": project_root / 'data' / 'neo4j_samples' / 'instances' / application_id / 'local_sample_structure.json',
+        "expanded": project_root / 'data' / 'neo4j_samples' / 'instances' / application_id / 'expanded_sample_structure.json',
+    }
+    sample_path = sample_paths.get(mode)
+    known_instance_ids = {instance["id"] for instance in MULTI_ENTITY_INSTANCES}
+    if application_id not in known_instance_ids:
+        return jsonify({'error': f'Unknown instance: {application_id}'}), 400
+    if sample_path is None:
+        return jsonify({'error': f'Unknown mode: {mode}'}), 400
+    if not sample_path.exists():
+        return jsonify({'error': f'Sample file not found: {application_id}/{mode}'}), 404
+    return jsonify(json.loads(sample_path.read_text(encoding='utf-8')))
+
+
+@bp.route('/api/multi_entity_live/<application_id>/<mode>')
+def get_multi_entity_live_sample(application_id, mode):
+    """Build one local or expanded application-centered instance from Neo4j."""
+    if mode not in {"local", "expanded"}:
+        return jsonify({'error': f'Unknown mode: {mode}'}), 400
+    try:
+        payload = build_anchor_application_sample_payload(
+            application_id,
+            mode=mode,
+            selected_perspectives=["Offer", "Workflow"],
+        )
+        return jsonify(json.loads(json.dumps(payload, default=str)))
+    except Exception as exc:
+        return jsonify({'error': str(exc)}), 500
 
 @bp.route('/api/upload_data', methods=['POST'])
 def upload_data():

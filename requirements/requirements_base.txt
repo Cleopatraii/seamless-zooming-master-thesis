@@ -3,6 +3,7 @@ flask
 numpy
 pandas
 pm4py
+neo4j
 # === Optional for Jupyter notebook ===
 plotly
 ipykernel

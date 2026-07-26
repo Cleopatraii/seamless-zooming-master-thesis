@@ -1,0 +1,5130 @@
+{
+  "mode": "expanded",
+  "anchor": {
+    "entityType": "Application",
+    "entityId": "Application_1020381296"
+  },
+  "selectedPerspectives": [
+    "Offer",
+    "Workflow"
+  ],
+  "memberships": [
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Application_1020381296",
+      "activity": "A_Create Application",
+      "timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_166443712",
+      "activity": "A_Submitted",
+      "timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_805825408",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_805825408",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_805825408",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_805825408",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_805825408",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1459297003",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1459297003",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1459297003",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1459297003",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1459297003",
+      "activity": "W_Handle leads",
+      "timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_90214838",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_90214838",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_90214838",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_90214838",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_90214838",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_638918273",
+      "activity": "A_Concept",
+      "timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_1",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1378115189",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1378115189",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_40",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1378115189",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1378115189",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1378115189",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_584452610",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_584452610",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_40",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_584452610",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_584452610",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_584452610",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_452374947",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_452374947",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_40",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_452374947",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_452374947",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_452374947",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_741371749",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_741371749",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_40",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_741371749",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_741371749",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_741371749",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1751126675",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1751126675",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_49",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1751126675",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1751126675",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1751126675",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1628965869",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1628965869",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_49",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1628965869",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1628965869",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1628965869",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_738734778",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_738734778",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_43",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_738734778",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_738734778",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_738734778",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1256867615",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1256867615",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_43",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1256867615",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1256867615",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1256867615",
+      "activity": "W_Complete application",
+      "timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1404484350",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1404484350",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_48",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1404484350",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1404484350",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1404484350",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_190821331",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_190821331",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_48",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_190821331",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_190821331",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_190821331",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_587379163",
+      "activity": "A_Accepted",
+      "timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_116103364",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:01.170000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_116103364",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:01.170000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_116103364",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:01.170000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_116103364",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:01.170000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_116103364",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1607933965",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1607933965",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1607933965",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1607933965",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_116103364",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_1637882280",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:20.119000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_1637882280",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:20.119000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_1637882280",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:20.119000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Offer_1637882280",
+      "activity": "O_Create Offer",
+      "timestamp": "2016-05-02T11:00:20.119000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_1637882280",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1923698752",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1923698752",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1923698752",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1923698752",
+      "activity": "O_Created",
+      "timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_1637882280",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1721500705",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1721500705",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1721500705",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1721500705",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_1637882280",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1572802774",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1572802774",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1572802774",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1572802774",
+      "activity": "O_Sent (mail and online)",
+      "timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_116103364",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2014452442",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2014452442",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2014452442",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2014452442",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2014452442",
+      "activity": "W_Complete application",
+      "timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1799501790",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1799501790",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1799501790",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1799501790",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1799501790",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1581628560",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1581628560",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1581628560",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1581628560",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1581628560",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1934583238",
+      "activity": "A_Complete",
+      "timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1951941968",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1951941968",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_28",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1951941968",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1951941968",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1951941968",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_549329522",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_549329522",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_16",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_549329522",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_549329522",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_549329522",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_730464533",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_730464533",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_16",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_730464533",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_730464533",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_730464533",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1965905686",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1965905686",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_2",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1965905686",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1965905686",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1965905686",
+      "activity": "W_Call after offers",
+      "timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_423746334",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_423746334",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_2",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_423746334",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_423746334",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_423746334",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_193094674",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_193094674",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_2",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_193094674",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_193094674",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_193094674",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1016719443",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_2",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1060620728",
+      "activity": "O_Returned",
+      "timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1060620728",
+      "activity": "O_Returned",
+      "timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_2",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1060620728",
+      "activity": "O_Returned",
+      "timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1060620728",
+      "activity": "O_Returned",
+      "timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_116103364",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1244333813",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1244333813",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_2",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1244333813",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1244333813",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1244333813",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_701114022",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_701114022",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_30",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_701114022",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_701114022",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_701114022",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1289431293",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1289431293",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_30",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1289431293",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1289431293",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1289431293",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1085598993",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1085598993",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_29",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1085598993",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1085598993",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1085598993",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2056651234",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2056651234",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_29",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2056651234",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2056651234",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2056651234",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1732433556",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1732433556",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_29",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1732433556",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1732433556",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1732433556",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1646392702",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1646392702",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_29",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1646392702",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1646392702",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1646392702",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_1013397422",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_29",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2105228315",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2105228315",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_29",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2105228315",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2105228315",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2105228315",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_113916504",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_113916504",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_41",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_113916504",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_113916504",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_113916504",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_369786694",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_369786694",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_41",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_369786694",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_369786694",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_369786694",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_453285704",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_453285704",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_120",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_453285704",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_453285704",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_453285704",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_600703076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_600703076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_120",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_600703076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_600703076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_600703076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_815919076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_815919076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_120",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_815919076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_815919076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_815919076",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2023238399",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_120",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_960118436",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_960118436",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_120",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_960118436",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_960118436",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_960118436",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_318252940",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_318252940",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_318252940",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_318252940",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_318252940",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_531156647",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_531156647",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_531156647",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_531156647",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_531156647",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_341481058",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_341481058",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_341481058",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_341481058",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_341481058",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_538328654",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_616683262",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_616683262",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_616683262",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_616683262",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_616683262",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1854153996",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1854153996",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_3",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1854153996",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1854153996",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1854153996",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_891731576",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_891731576",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_3",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_891731576",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_891731576",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_891731576",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_948887536",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_948887536",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_118",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_948887536",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_948887536",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_948887536",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_852095537",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_852095537",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_118",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_852095537",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_852095537",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_852095537",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1935843493",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1935843493",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_118",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1935843493",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1935843493",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1935843493",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_137276567",
+      "activity": "A_Validating",
+      "timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_118",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2060071133",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2060071133",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_118",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2060071133",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2060071133",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2060071133",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1203950778",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1203950778",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1203950778",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1203950778",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1203950778",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_835106333",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_835106333",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_835106333",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_835106333",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_835106333",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1806474143",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1806474143",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1806474143",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1806474143",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1806474143",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_340113131",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_340113131",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_340113131",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_340113131",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_340113131",
+      "activity": "W_Validate application",
+      "timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_253518192",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_253518192",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_253518192",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_253518192",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_253518192",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_64097062",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_64097062",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_64097062",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_64097062",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_64097062",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_2086660290",
+      "activity": "A_Incomplete",
+      "timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_443570960",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_443570960",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_443570960",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_443570960",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_443570960",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_794681965",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_794681965",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_68",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_794681965",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_794681965",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_794681965",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1140513602",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1140513602",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_68",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1140513602",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1140513602",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1140513602",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1387488364",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1387488364",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_5",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1387488364",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1387488364",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1387488364",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1921271440",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1921271440",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_5",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1921271440",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1921271440",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1921271440",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2081819475",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2081819475",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_5",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2081819475",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2081819475",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_2081819475",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_417804296",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_417804296",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_5",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_417804296",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_417804296",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_417804296",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1925573546",
+      "activity": "O_Accepted",
+      "timestamp": "2016-05-18T14:11:05.731000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1925573546",
+      "activity": "O_Accepted",
+      "timestamp": "2016-05-18T14:11:05.731000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1925573546",
+      "activity": "O_Accepted",
+      "timestamp": "2016-05-18T14:11:05.731000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_1925573546",
+      "activity": "O_Accepted",
+      "timestamp": "2016-05-18T14:11:05.731000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_116103364",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Application",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "ApplState_71827612",
+      "activity": "A_Pending",
+      "timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1406782357",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AW",
+      "entity_id": "Application_1020381296_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1406782357",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1406782357",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_116103364_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1406782357",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "Workitem_1406782357",
+      "activity": "W_Call incomplete files",
+      "timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Workflow",
+      "entity_id": "Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_2053554750",
+      "activity": "O_Cancelled",
+      "timestamp": "2016-05-18T14:11:05.751000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_AO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_2053554750",
+      "activity": "O_Cancelled",
+      "timestamp": "2016-05-18T14:11:05.751000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_R",
+      "entity_id": "User_75",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_2053554750",
+      "activity": "O_Cancelled",
+      "timestamp": "2016-05-18T14:11:05.751000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Case_WO",
+      "entity_id": "Offer_1637882280_Application_1020381296",
+      "is_anchor_event": true
+    },
+    {
+      "event_id": "OfferState_2053554750",
+      "activity": "O_Cancelled",
+      "timestamp": "2016-05-18T14:11:05.751000000+01:00",
+      "case_id": "Application_1020381296",
+      "entity_type": "Offer",
+      "entity_id": "Offer_1637882280",
+      "is_anchor_event": true
+    }
+  ],
+  "dfEdges": [
+    {
+      "source_event_id": "Application_1020381296",
+      "source_activity": "A_Create Application",
+      "source_timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "target_event_id": "ApplState_166443712",
+      "target_activity": "A_Submitted",
+      "target_timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Application_1020381296",
+      "source_activity": "A_Create Application",
+      "source_timestamp": "2016-04-20T10:19:05.154000000+01:00",
+      "target_event_id": "ApplState_166443712",
+      "target_activity": "A_Submitted",
+      "target_timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_166443712",
+      "source_activity": "A_Submitted",
+      "source_timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "target_event_id": "ApplState_638918273",
+      "target_activity": "A_Concept",
+      "target_timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_166443712",
+      "source_activity": "A_Submitted",
+      "source_timestamp": "2016-04-20T10:19:05.215000000+01:00",
+      "target_event_id": "Workitem_805825408",
+      "target_activity": "W_Handle leads",
+      "target_timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_805825408",
+      "source_activity": "W_Handle leads",
+      "source_timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "target_event_id": "Workitem_1459297003",
+      "target_activity": "W_Handle leads",
+      "target_timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_805825408",
+      "source_activity": "W_Handle leads",
+      "source_timestamp": "2016-04-20T10:19:05.662000000+01:00",
+      "target_event_id": "Workitem_1459297003",
+      "target_activity": "W_Handle leads",
+      "target_timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1459297003",
+      "source_activity": "W_Handle leads",
+      "source_timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "target_event_id": "Workitem_90214838",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1459297003",
+      "source_activity": "W_Handle leads",
+      "source_timestamp": "2016-04-20T10:20:41.062000000+01:00",
+      "target_event_id": "Workitem_90214838",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_90214838",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "target_event_id": "ApplState_638918273",
+      "target_activity": "A_Concept",
+      "target_timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_90214838",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T10:20:41.071000000+01:00",
+      "target_event_id": "Workitem_1378115189",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_638918273",
+      "source_activity": "A_Concept",
+      "source_timestamp": "2016-04-20T10:20:41.078000000+01:00",
+      "target_event_id": "ApplState_587379163",
+      "target_activity": "A_Accepted",
+      "target_timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1378115189",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "target_event_id": "Workitem_584452610",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1378115189",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T12:36:12.532000000+01:00",
+      "target_event_id": "Workitem_584452610",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_584452610",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "target_event_id": "Workitem_452374947",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_584452610",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T12:38:04.194000000+01:00",
+      "target_event_id": "Workitem_452374947",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_452374947",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "target_event_id": "Workitem_741371749",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_452374947",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T15:05:00.749000000+01:00",
+      "target_event_id": "Workitem_741371749",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_741371749",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-20T15:08:48.815000000+01:00",
+      "target_event_id": "Workitem_1751126675",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1751126675",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "target_event_id": "Workitem_1628965869",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1751126675",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-22T12:06:55.007000000+01:00",
+      "target_event_id": "Workitem_1628965869",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1628965869",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-22T12:15:26.870000000+01:00",
+      "target_event_id": "Workitem_738734778",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_738734778",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "target_event_id": "Workitem_1256867615",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_738734778",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-30T16:02:34.174000000+01:00",
+      "target_event_id": "Workitem_1256867615",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1256867615",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-04-30T16:03:02.535000000+01:00",
+      "target_event_id": "Workitem_1404484350",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1404484350",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "target_event_id": "Workitem_190821331",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1404484350",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-05-02T09:03:57.332000000+01:00",
+      "target_event_id": "Workitem_190821331",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_190821331",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-05-02T09:10:29.063000000+01:00",
+      "target_event_id": "Workitem_2014452442",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_587379163",
+      "source_activity": "A_Accepted",
+      "source_timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "target_event_id": "ApplState_1934583238",
+      "target_activity": "A_Complete",
+      "target_timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_587379163",
+      "source_activity": "A_Accepted",
+      "source_timestamp": "2016-05-02T10:46:40.597000000+01:00",
+      "target_event_id": "Offer_116103364",
+      "target_activity": "O_Create Offer",
+      "target_timestamp": "2016-05-02T11:00:01.170000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Offer_116103364",
+      "source_activity": "O_Create Offer",
+      "source_timestamp": "2016-05-02T11:00:01.170000000+01:00",
+      "target_event_id": "OfferState_1607933965",
+      "target_activity": "O_Created",
+      "target_timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Offer_116103364",
+      "source_activity": "O_Create Offer",
+      "source_timestamp": "2016-05-02T11:00:01.170000000+01:00",
+      "target_event_id": "OfferState_1607933965",
+      "target_activity": "O_Created",
+      "target_timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "perspective": "Offer",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1607933965",
+      "source_activity": "O_Created",
+      "source_timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "target_event_id": "OfferState_1572802774",
+      "target_activity": "O_Sent (mail and online)",
+      "target_timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "perspective": "Offer",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1607933965",
+      "source_activity": "O_Created",
+      "source_timestamp": "2016-05-02T11:00:02.867000000+01:00",
+      "target_event_id": "Offer_1637882280",
+      "target_activity": "O_Create Offer",
+      "target_timestamp": "2016-05-02T11:00:20.119000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Offer_1637882280",
+      "source_activity": "O_Create Offer",
+      "source_timestamp": "2016-05-02T11:00:20.119000000+01:00",
+      "target_event_id": "OfferState_1923698752",
+      "target_activity": "O_Created",
+      "target_timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Offer_1637882280",
+      "source_activity": "O_Create Offer",
+      "source_timestamp": "2016-05-02T11:00:20.119000000+01:00",
+      "target_event_id": "OfferState_1923698752",
+      "target_activity": "O_Created",
+      "target_timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "perspective": "Offer",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1923698752",
+      "source_activity": "O_Created",
+      "source_timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "target_event_id": "OfferState_1721500705",
+      "target_activity": "O_Sent (mail and online)",
+      "target_timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1923698752",
+      "source_activity": "O_Created",
+      "source_timestamp": "2016-05-02T11:00:21.446000000+01:00",
+      "target_event_id": "OfferState_1721500705",
+      "target_activity": "O_Sent (mail and online)",
+      "target_timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "perspective": "Offer",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1721500705",
+      "source_activity": "O_Sent (mail and online)",
+      "source_timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "target_event_id": "OfferState_1572802774",
+      "target_activity": "O_Sent (mail and online)",
+      "target_timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1721500705",
+      "source_activity": "O_Sent (mail and online)",
+      "source_timestamp": "2016-05-02T11:00:38.787000000+01:00",
+      "target_event_id": "OfferState_2053554750",
+      "target_activity": "O_Cancelled",
+      "target_timestamp": "2016-05-18T14:11:05.751000000+01:00",
+      "perspective": "Offer",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1572802774",
+      "source_activity": "O_Sent (mail and online)",
+      "source_timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "target_event_id": "OfferState_1060620728",
+      "target_activity": "O_Returned",
+      "target_timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "perspective": "Offer",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1572802774",
+      "source_activity": "O_Sent (mail and online)",
+      "source_timestamp": "2016-05-02T11:00:38.791000000+01:00",
+      "target_event_id": "Workitem_2014452442",
+      "target_activity": "W_Complete application",
+      "target_timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2014452442",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "target_event_id": "Workitem_1799501790",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2014452442",
+      "source_activity": "W_Complete application",
+      "source_timestamp": "2016-05-02T11:00:38.807000000+01:00",
+      "target_event_id": "Workitem_1799501790",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1799501790",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "target_event_id": "Workitem_1581628560",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1799501790",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-02T11:00:38.835000000+01:00",
+      "target_event_id": "Workitem_1581628560",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1581628560",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "target_event_id": "ApplState_1934583238",
+      "target_activity": "A_Complete",
+      "target_timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1581628560",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-02T11:00:38.838000000+01:00",
+      "target_event_id": "Workitem_1951941968",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1934583238",
+      "source_activity": "A_Complete",
+      "source_timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "target_event_id": "ApplState_1016719443",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1934583238",
+      "source_activity": "A_Complete",
+      "source_timestamp": "2016-05-02T11:00:38.840000000+01:00",
+      "target_event_id": "Workitem_1951941968",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1951941968",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-02T11:03:11.503000000+01:00",
+      "target_event_id": "Workitem_549329522",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_549329522",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "target_event_id": "Workitem_730464533",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_549329522",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-06T09:49:49.220000000+01:00",
+      "target_event_id": "Workitem_730464533",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_730464533",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-06T09:50:10.743000000+01:00",
+      "target_event_id": "Workitem_1965905686",
+      "target_activity": "W_Call after offers",
+      "target_timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1965905686",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "target_event_id": "Workitem_423746334",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1965905686",
+      "source_activity": "W_Call after offers",
+      "source_timestamp": "2016-05-11T11:37:01.545000000+01:00",
+      "target_event_id": "Workitem_423746334",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_423746334",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "target_event_id": "Workitem_193094674",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_423746334",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-11T11:37:01.551000000+01:00",
+      "target_event_id": "Workitem_193094674",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_193094674",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "target_event_id": "ApplState_1016719443",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_193094674",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-11T11:37:01.553000000+01:00",
+      "target_event_id": "Workitem_1244333813",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1016719443",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "target_event_id": "ApplState_1013397422",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1016719443",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-11T11:37:02.477000000+01:00",
+      "target_event_id": "OfferState_1060620728",
+      "target_activity": "O_Returned",
+      "target_timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1060620728",
+      "source_activity": "O_Returned",
+      "source_timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "target_event_id": "OfferState_1925573546",
+      "target_activity": "O_Accepted",
+      "target_timestamp": "2016-05-18T14:11:05.731000000+01:00",
+      "perspective": "Offer",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1060620728",
+      "source_activity": "O_Returned",
+      "source_timestamp": "2016-05-11T11:37:19.544000000+01:00",
+      "target_event_id": "Workitem_1244333813",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1244333813",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-11T11:50:05.060000000+01:00",
+      "target_event_id": "Workitem_701114022",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_701114022",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "target_event_id": "Workitem_1289431293",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_701114022",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-13T08:18:20.224000000+01:00",
+      "target_event_id": "Workitem_1289431293",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1289431293",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-13T08:18:23.902000000+01:00",
+      "target_event_id": "Workitem_1085598993",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1085598993",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "target_event_id": "Workitem_2056651234",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1085598993",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-13T13:16:11.304000000+01:00",
+      "target_event_id": "Workitem_2056651234",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2056651234",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "target_event_id": "Workitem_1732433556",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2056651234",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-13T13:27:34.259000000+01:00",
+      "target_event_id": "Workitem_1732433556",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1732433556",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "target_event_id": "Workitem_1646392702",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1732433556",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T13:27:34.270000000+01:00",
+      "target_event_id": "Workitem_1646392702",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1646392702",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "target_event_id": "ApplState_1013397422",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1646392702",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T13:27:34.272000000+01:00",
+      "target_event_id": "Workitem_2105228315",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1013397422",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "target_event_id": "ApplState_2023238399",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_1013397422",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-13T13:27:34.275000000+01:00",
+      "target_event_id": "Workitem_2105228315",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2105228315",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T13:38:44.300000000+01:00",
+      "target_event_id": "Workitem_113916504",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_113916504",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "target_event_id": "Workitem_369786694",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_113916504",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T14:55:19.465000000+01:00",
+      "target_event_id": "Workitem_369786694",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_369786694",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-13T15:04:43.754000000+01:00",
+      "target_event_id": "Workitem_453285704",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_453285704",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "target_event_id": "Workitem_600703076",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_453285704",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-14T11:44:50.593000000+01:00",
+      "target_event_id": "Workitem_600703076",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_600703076",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "target_event_id": "Workitem_815919076",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_600703076",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-14T11:44:50.601000000+01:00",
+      "target_event_id": "Workitem_815919076",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_815919076",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "target_event_id": "ApplState_2023238399",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_815919076",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-14T11:44:50.603000000+01:00",
+      "target_event_id": "Workitem_960118436",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_2023238399",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "target_event_id": "ApplState_538328654",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_2023238399",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-14T11:44:50.671000000+01:00",
+      "target_event_id": "Workitem_960118436",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_960118436",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-14T11:45:38.395000000+01:00",
+      "target_event_id": "Workitem_318252940",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_318252940",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "target_event_id": "Workitem_531156647",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_318252940",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-17T09:16:31.906000000+01:00",
+      "target_event_id": "Workitem_531156647",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_531156647",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "target_event_id": "Workitem_341481058",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_531156647",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:16:31.916000000+01:00",
+      "target_event_id": "Workitem_341481058",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_341481058",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "target_event_id": "ApplState_538328654",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_341481058",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:16:31.918000000+01:00",
+      "target_event_id": "Workitem_616683262",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_538328654",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "target_event_id": "ApplState_137276567",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_538328654",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-17T09:16:31.920000000+01:00",
+      "target_event_id": "Workitem_616683262",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_616683262",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "target_event_id": "Workitem_1203950778",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_616683262",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:16:52.981000000+01:00",
+      "target_event_id": "Workitem_1854153996",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1854153996",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "target_event_id": "Workitem_891731576",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1854153996",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T09:59:47.338000000+01:00",
+      "target_event_id": "Workitem_891731576",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_891731576",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-17T10:04:40.341000000+01:00",
+      "target_event_id": "Workitem_948887536",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_948887536",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "target_event_id": "Workitem_852095537",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_948887536",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T07:59:29.115000000+01:00",
+      "target_event_id": "Workitem_852095537",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_852095537",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "target_event_id": "Workitem_1935843493",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_852095537",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T07:59:29.133000000+01:00",
+      "target_event_id": "Workitem_1935843493",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1935843493",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "target_event_id": "ApplState_137276567",
+      "target_activity": "A_Validating",
+      "target_timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1935843493",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T07:59:29.137000000+01:00",
+      "target_event_id": "Workitem_2060071133",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_137276567",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "target_event_id": "ApplState_2086660290",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_137276567",
+      "source_activity": "A_Validating",
+      "source_timestamp": "2016-05-18T07:59:29.208000000+01:00",
+      "target_event_id": "Workitem_2060071133",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2060071133",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T08:00:51.791000000+01:00",
+      "target_event_id": "Workitem_1203950778",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1203950778",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "target_event_id": "Workitem_835106333",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1203950778",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:19:51.836000000+01:00",
+      "target_event_id": "Workitem_835106333",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_835106333",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "target_event_id": "Workitem_1806474143",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_835106333",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:24:18.509000000+01:00",
+      "target_event_id": "Workitem_1806474143",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1806474143",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "target_event_id": "Workitem_340113131",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1806474143",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:27:57.868000000+01:00",
+      "target_event_id": "Workitem_340113131",
+      "target_activity": "W_Validate application",
+      "target_timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_340113131",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "target_event_id": "Workitem_253518192",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_340113131",
+      "source_activity": "W_Validate application",
+      "source_timestamp": "2016-05-18T10:39:33.909000000+01:00",
+      "target_event_id": "Workitem_253518192",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_253518192",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "target_event_id": "Workitem_64097062",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_253518192",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T10:39:33.918000000+01:00",
+      "target_event_id": "Workitem_64097062",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_64097062",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "target_event_id": "ApplState_2086660290",
+      "target_activity": "A_Incomplete",
+      "target_timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_64097062",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T10:39:33.921000000+01:00",
+      "target_event_id": "Workitem_443570960",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_2086660290",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "target_event_id": "ApplState_71827612",
+      "target_activity": "A_Pending",
+      "target_timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "perspective": "Application",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_2086660290",
+      "source_activity": "A_Incomplete",
+      "source_timestamp": "2016-05-18T10:39:33.924000000+01:00",
+      "target_event_id": "Workitem_443570960",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_443570960",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "target_event_id": "OfferState_1925573546",
+      "target_activity": "O_Accepted",
+      "target_timestamp": "2016-05-18T14:11:05.731000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_443570960",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T10:39:43.716000000+01:00",
+      "target_event_id": "Workitem_794681965",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_794681965",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "target_event_id": "Workitem_1140513602",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_794681965",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:06:57.409000000+01:00",
+      "target_event_id": "Workitem_1140513602",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1140513602",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:08:05.991000000+01:00",
+      "target_event_id": "Workitem_1387488364",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1387488364",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "target_event_id": "Workitem_1921271440",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1387488364",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:34:39.134000000+01:00",
+      "target_event_id": "Workitem_1921271440",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1921271440",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "target_event_id": "Workitem_2081819475",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1921271440",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:36:11.783000000+01:00",
+      "target_event_id": "Workitem_2081819475",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2081819475",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "target_event_id": "Workitem_417804296",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_2081819475",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:54:54.166000000+01:00",
+      "target_event_id": "Workitem_417804296",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_417804296",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T11:57:32.722000000+01:00",
+      "target_event_id": "Workitem_1406782357",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "perspective": "Workflow",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "OfferState_1925573546",
+      "source_activity": "O_Accepted",
+      "source_timestamp": "2016-05-18T14:11:05.731000000+01:00",
+      "target_event_id": "ApplState_71827612",
+      "target_activity": "A_Pending",
+      "target_timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "ApplState_71827612",
+      "source_activity": "A_Pending",
+      "source_timestamp": "2016-05-18T14:11:05.735000000+01:00",
+      "target_event_id": "Workitem_1406782357",
+      "target_activity": "W_Call incomplete files",
+      "target_timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    },
+    {
+      "source_event_id": "Workitem_1406782357",
+      "source_activity": "W_Call incomplete files",
+      "source_timestamp": "2016-05-18T14:11:05.738000000+01:00",
+      "target_event_id": "OfferState_2053554750",
+      "target_activity": "O_Cancelled",
+      "target_timestamp": "2016-05-18T14:11:05.751000000+01:00",
+      "perspective": "Case_R",
+      "source_is_anchor_event": true,
+      "target_is_anchor_event": true
+    }
+  ]
+}
