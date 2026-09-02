@@ -2,25 +2,20 @@
 SEAMLESS_ZOOM — A technique for seamless zooming between process models and process instances.
 */
 
-import { buildGraphPayload, buildMultiEntityGraph } from "./multiEntityData.mjs";
+import { buildGraphPayload, buildMultiEntityGraph, makeEntityKey } from "./multiEntityData.mjs";
 import {
     OFFER_EDGE_COLORS,
-    filterMembershipsForScope,
     getEntityDisplayCategory,
     isExpandableRelationEntityType,
     isRingEntityType,
     splitVisibleAndHiddenMemberships,
 } from "./multiEntityConfig.mjs";
+import {
+    getExpansionTargetForRelation,
+    getVisibleRelationTypesForPerspective,
+} from "./multiEntityPerspectiveRules.mjs";
 
 const secondsToDays = (seconds) => seconds / 86400;
-const EXPANSION_RELATION_TYPE_BY_PERSPECTIVE = {
-    Offer: "Case_AO",
-    Workflow: "Case_AW",
-};
-const EXPANSION_TARGET_BY_RELATION_TYPE = {
-    Case_AO: "Offer",
-    Case_AW: "Workflow",
-};
 const PERSPECTIVE_EDGE_COLORS = {
     Application: "#1f9d55",
     Workflow: "#e85d04",
@@ -32,10 +27,35 @@ const PERSPECTIVE_PATH_OFFSETS = {
 };
 const OVERLAP_THRESHOLD_SECONDS = 1;
 
+function makeDefaultPerspective(anchor) {
+    const entityType = anchor?.entityType ?? "Application";
+    const entityId = anchor?.entityId ?? "";
+    return {
+        perspective: entityType,
+        entityType,
+        entityId,
+        entityKey: makeEntityKey(entityType, entityId),
+    };
+}
+
+function getGraphTimeDomainDays(graphData) {
+    const times = graphData.nodes
+        .map((node) => secondsToDays(node.timestamp_relative_seconds ?? 0))
+        .filter((day) => Number.isFinite(day));
+
+    if (times.length === 0) return [0, 1];
+
+    return [
+        Math.min(...times),
+        Math.max(...times),
+    ];
+}
+
 
 function createMultiEntityState(localSample, expandedSample) {
     const localData = buildMultiEntityGraph(localSample);
     const expandedData = buildMultiEntityGraph(expandedSample);
+    const anchorXDomainDays = getGraphTimeDomainDays(localData.graphData);
     //"A_Create Application" => "1_A_Create Application"
     const sharedRankedActivityByActivity = new Map(
         expandedData.graphData.nodes.map((node) => [node.activity, node.ranked_activity])
@@ -56,12 +76,14 @@ function createMultiEntityState(localSample, expandedSample) {
 
     const state = {
         anchor: expandedSample.anchor,
+        perspective: makeDefaultPerspective(expandedSample.anchor),
         localSample,
         expandedSample,
         localData,
         expandedData,
         mode: "local",
         expandedEntityKeys: new Set(),  //"Case_AO::Offer_716078829_Application_681547497"
+        expansionOriginEventIds: new Map(),
         selectedEventId: null,
         hoveredEventId: null,
         graphFilters: {
@@ -76,13 +98,82 @@ function createMultiEntityState(localSample, expandedSample) {
         return state.selectedEventId ?? state.hoveredEventId;
     }
 
-    //如果你展开了 Offer1 或 Workflow，事件详情里可能会显示相关的 Case_WO 信息
-    function shouldIncludeWorkflowOfferRelations() {
-        if (state.mode === "expanded") return true;
-        return getExpandedEntityEntries().some((entry) => {
-            const category = entry.displayCategory ?? getEntityDisplayCategory(entry.entityType);
-            return category === "Offer" || category === "Workflow";
+    function getPerspectiveEntityEntry() {
+        return expandedData.entityIndex.get(state.perspective.entityKey) ?? null;
+    }
+
+    function isAnchorPerspectiveEntity() {
+        return (
+            state.perspective.entityType === state.anchor?.entityType &&
+            state.perspective.entityId === state.anchor?.entityId
+        );
+    }
+
+    function getPerspectiveLocalEventIds() {
+        if (isAnchorPerspectiveEntity()) {
+            return new Set(localEventIds);
+        }
+
+        const perspectiveEntry = getPerspectiveEntityEntry();
+        return new Set(perspectiveEntry?.eventIds ?? []);
+    }
+
+    function setPerspectiveEntity({ perspective, entityType, entityId } = {}) {
+        if (!entityType || !entityId) return;
+        state.perspective = {
+            perspective: perspective ?? entityType,
+            entityType,
+            entityId,
+            entityKey: makeEntityKey(entityType, entityId),
+        };
+        state.mode = "local";
+        state.expandedEntityKeys.clear();
+        state.expansionOriginEventIds.clear();
+        state.selectedEventId = null;
+        state.hoveredEventId = null;
+    }
+
+    function resetPerspectiveEntity() {
+        setPerspectiveEntity({
+            perspective: state.anchor?.entityType ?? "Application",
+            entityType: state.anchor?.entityType ?? "Application",
+            entityId: state.anchor?.entityId ?? "",
         });
+    }
+
+    function eventHasMembershipType(event, entityType) {
+        return event.entityMemberships?.some((membership) => membership.entityType === entityType);
+    }
+
+    function eventHasMembershipKey(event, entityKey) {
+        return event.entityMembershipKeys?.includes(entityKey);
+    }
+
+    function decorateMembershipForPerspective(membership) {
+        const targetCategory = getExpansionTargetForRelation(
+            state.perspective.perspective,
+            membership.entityType
+        );
+        if (!targetCategory) return membership;
+
+        return {
+            ...membership,
+            displayCategory: targetCategory,
+            expansionTargetCategory: targetCategory,
+        };
+    }
+
+    function filterMembershipsForCurrentPerspective(memberships = []) {
+        const visibleRelationTypes = new Set(
+            getVisibleRelationTypesForPerspective(state.perspective.perspective)
+        );
+
+        return memberships
+            .filter((membership) => (
+                isRingEntityType(membership.entityType) ||
+                visibleRelationTypes.has(membership.entityType)
+            ))
+            .map((membership) => decorateMembershipForPerspective(membership));
     }
 
     function getExpansionAnchorPair(entry, targetEntityType) {
@@ -94,25 +185,110 @@ function createMultiEntityState(localSample, expandedSample) {
                 return delta !== 0 ? delta : a.id.localeCompare(b.id);
             });
 
-        const firstLifecycleEvent = entryEvents.find((event) => (
-            event.entityMemberships?.some((membership) => membership.entityType === targetEntityType)
-        ));
+        const firstLifecycleEvent = entryEvents.find((event) => eventHasMembershipType(event, targetEntityType));
         if (!firstLifecycleEvent) return null;
 
-        const anchorEvent = entryEvents
-            .filter((event) => (
-                event.timestamp_relative_seconds <= firstLifecycleEvent.timestamp_relative_seconds &&
-                !event.entityMemberships?.some((membership) => membership.entityType === targetEntityType) &&
-                event.entityMemberships?.some((membership) => membership.entityType === "Application")
-            ))
-            .at(-1);
+        const perspectiveLocalEventIds = getPerspectiveLocalEventIds();
+        const currentPerspectiveEvents = entryEvents.filter((event) => (
+            eventHasMembershipKey(event, state.perspective.entityKey)
+        ));
+        const localPerspectiveEvents = currentPerspectiveEvents.filter((event) => (
+            perspectiveLocalEventIds.has(event.id)
+        ));
+        const anchorCandidates = localPerspectiveEvents.length > 0
+            ? localPerspectiveEvents
+            : currentPerspectiveEvents;
+        const precedingAnchorCandidates = anchorCandidates.filter((event) => (
+            event.timestamp_relative_seconds <= firstLifecycleEvent.timestamp_relative_seconds
+        ));
+        const fallbackAnchorCandidates = precedingAnchorCandidates.length > 0
+            ? precedingAnchorCandidates
+            : anchorCandidates;
+
+        const anchorEvent = fallbackAnchorCandidates
+            .sort((eventA, eventB) => {
+                const distanceA = Math.abs(
+                    eventA.timestamp_relative_seconds - firstLifecycleEvent.timestamp_relative_seconds
+                );
+                const distanceB = Math.abs(
+                    eventB.timestamp_relative_seconds - firstLifecycleEvent.timestamp_relative_seconds
+                );
+                if (distanceA !== distanceB) return distanceA - distanceB;
+                return eventA.timestamp_relative_seconds - eventB.timestamp_relative_seconds;
+            })[0];
         if (!anchorEvent) return null;
 
         return { anchorEvent, firstLifecycleEvent };
     }
 
+    function getTargetLifecycleEvents(entry, targetEntityType) {
+        const entryEvents = Array.from(entry.eventIds)
+            .map((eventId) => expandedData.eventMap.get(eventId))
+            .filter(Boolean);
+
+        if (targetEntityType === state.anchor?.entityType && state.anchor?.entityType === "Application") {
+            return entryEvents.filter((event) => localEventIds.has(event.id));
+        }
+
+        return entryEvents.filter((event) => eventHasMembershipType(event, targetEntityType));
+    }
+
+    function getClosestTargetEvent(sourceEvent, targetEvents, relationType, targetEntityType) {
+        const candidates = targetEvents.filter((event) => event.id !== sourceEvent.id);
+        if (candidates.length === 0) return null;
+
+        const preferPrecedingApplication = (
+            targetEntityType === "Application" &&
+            (relationType === "Case_AO" || relationType === "Case_AW")
+        );
+        const rankedCandidates = preferPrecedingApplication
+            ? candidates.filter((event) => (
+                event.timestamp_relative_seconds <= sourceEvent.timestamp_relative_seconds
+            ))
+            : [];
+        const effectiveCandidates = rankedCandidates.length > 0
+            ? rankedCandidates
+            : candidates;
+
+        return effectiveCandidates
+            .slice()
+            .sort((eventA, eventB) => {
+                const distanceA = Math.abs(
+                    eventA.timestamp_relative_seconds - sourceEvent.timestamp_relative_seconds
+                );
+                const distanceB = Math.abs(
+                    eventB.timestamp_relative_seconds - sourceEvent.timestamp_relative_seconds
+                );
+                if (distanceA !== distanceB) return distanceA - distanceB;
+                return eventA.timestamp_relative_seconds - eventB.timestamp_relative_seconds;
+            })[0];
+    }
+
+    function getExpansionConnectionPair(entry, targetEntityType) {
+        const originEvent = expandedData.eventMap.get(
+            state.expansionOriginEventIds.get(entry.entityKey)
+        );
+        const fallbackPair = getExpansionAnchorPair(entry, targetEntityType);
+        const sourceEvent = originEvent ?? fallbackPair?.anchorEvent;
+        if (!sourceEvent) return null;
+
+        const targetEvents = getTargetLifecycleEvents(entry, targetEntityType);
+        const targetEvent = getClosestTargetEvent(
+            sourceEvent,
+            targetEvents,
+            entry.entityType,
+            targetEntityType
+        ) ?? fallbackPair?.firstLifecycleEvent;
+        if (!targetEvent) return null;
+
+        return { sourceEvent, targetEvent };
+    }
+
     function isExpansionAnchorMembership(event, membership) {
-        const targetEntityType = EXPANSION_TARGET_BY_RELATION_TYPE[membership.entityType];
+        const targetEntityType = getExpansionTargetForRelation(
+            state.perspective.perspective,
+            membership.entityType
+        );
         if (!targetEntityType) return false;
 
         const entry = expandedData.entityIndex.get(membership.entityKey);
@@ -131,11 +307,7 @@ function createMultiEntityState(localSample, expandedSample) {
     function decorateEventForCurrentScope(event) {
         if (!event) return null;
 
-        //Application,Case_AO,Case_AW,Case_R ----Case_WO,Offer,Workflow
-        const scopedMemberships = filterMembershipsForScope(event.entityMemberships, {
-            anchorEntityType: state.anchor?.entityType ?? null,
-            allowWorkflowOfferRelations: shouldIncludeWorkflowOfferRelations(),//是否允许 Case_WO / true Offer / true Workflow membership 出现
-        });
+        const scopedMemberships = filterMembershipsForCurrentPerspective(event.entityMemberships);
 
         //把已经过滤过的 memberships 再分成两组
         //已经允许参与显示的 membership，放在主区域还是 Other relations（Case_WO，Case_AW）
@@ -207,6 +379,7 @@ function createMultiEntityState(localSample, expandedSample) {
         return Number.isFinite(parsedValue) ? parsedValue : null;
     }
 
+    //筛选 O_ 开头 W_ 开头
     function matchesGraphFilters(event) {
         if (!event) return false;
 
@@ -248,13 +421,13 @@ function createMultiEntityState(localSample, expandedSample) {
             return new Set(expandedData.graphData.nodes.map((node) => node.id));
         }
         if (state.mode === "selective") {
-            const visibleEventIds = new Set(localEventIds);
+            const visibleEventIds = getPerspectiveLocalEventIds();
             getExpandedEntityEntries().forEach((entry) => {
                 entry.eventIds.forEach((eventId) => visibleEventIds.add(eventId));
             });
             return visibleEventIds;
         }
-        return new Set(localEventIds);
+        return getPerspectiveLocalEventIds();
     }
 
     //selective模式的时候 做到用户点击展开
@@ -278,8 +451,13 @@ function createMultiEntityState(localSample, expandedSample) {
     function toggleEntityExpansion(entityKey) {
         if (state.expandedEntityKeys.has(entityKey)) {
             state.expandedEntityKeys.delete(entityKey);
+            state.expansionOriginEventIds.delete(entityKey);
         } else {
             state.expandedEntityKeys.add(entityKey);
+            const originEventId = getActiveEventId();
+            if (originEventId) {
+                state.expansionOriginEventIds.set(entityKey, originEventId);
+            }
         }
         state.mode = state.expandedEntityKeys.size > 0 ? "selective" : "local";
     }
@@ -291,6 +469,7 @@ function createMultiEntityState(localSample, expandedSample) {
     function resetSelections() {
         state.mode = "local";
         state.expandedEntityKeys.clear();
+        state.expansionOriginEventIds.clear();
     }
 
     function clearSelectionIfFilteredOut() {
@@ -304,6 +483,7 @@ function createMultiEntityState(localSample, expandedSample) {
         }
     }
 
+    //应用用户输入的过滤条件
     function setGraphFilters(filters = {}) {
         state.graphFilters = {
             activityPrefix: String(filters.activityPrefix ?? "").trim(),
@@ -314,6 +494,7 @@ function createMultiEntityState(localSample, expandedSample) {
         clearSelectionIfFilteredOut();
     }
 
+    //清空过滤条件
     function resetGraphFilters() {
         state.graphFilters = {
             activityPrefix: "",
@@ -368,21 +549,41 @@ function createMultiEntityState(localSample, expandedSample) {
         return getExpansionEntries("Offer");
     }
 
+    function getRelationTypesForTargetPerspective(perspective) {
+        return getVisibleRelationTypesForPerspective(state.perspective.perspective)
+            .filter((relationType) => (
+                getExpansionTargetForRelation(state.perspective.perspective, relationType) === perspective
+            ));
+    }
+
+    function getPrimaryPerspectiveEntries(perspective) {
+        if (
+            state.perspective.perspective !== perspective ||
+            state.perspective.entityType !== perspective
+        ) {
+            return [];
+        }
+
+        const perspectiveEntry = getPerspectiveEntityEntry();
+        return perspectiveEntry ? [perspectiveEntry] : [];
+    }
+
     function getExpansionEntries(perspective) {
-        const relationType = EXPANSION_RELATION_TYPE_BY_PERSPECTIVE[perspective];
-        return getExpandedEntityEntries().filter((entry) => {
-            const category = entry.displayCategory ?? getEntityDisplayCategory(entry.entityType);
-            return category === perspective && entry.entityType === relationType;
+        const relationTypes = new Set(getRelationTypesForTargetPerspective(perspective));
+        const relationEntries = getExpandedEntityEntries().filter((entry) => {
+            return relationTypes.has(entry.entityType);
         });
+        return [...getPrimaryPerspectiveEntries(perspective), ...relationEntries];
     }
 
     function getEntriesForMode(perspective) {
-        const relationType = EXPANSION_RELATION_TYPE_BY_PERSPECTIVE[perspective];
+        const relationTypes = new Set(getRelationTypesForTargetPerspective(perspective));
+        const primaryEntries = getPrimaryPerspectiveEntries(perspective);
         if (state.mode === "expanded") {
-            return Array.from(expandedData.entityIndex.values()).filter((entry) => {
-                const category = entry.displayCategory ?? getEntityDisplayCategory(entry.entityType);
-                return category === perspective && entry.entityType === relationType;
+            const relationEntries = Array.from(expandedData.entityIndex.values()).filter((entry) => {
+                return relationTypes.has(entry.entityType);
             });
+            return [...primaryEntries, ...relationEntries];
         }
         return getExpansionEntries(perspective);
     }
@@ -392,8 +593,23 @@ function createMultiEntityState(localSample, expandedSample) {
         const offerEntries = getEntriesForMode("Offer");
         const workflowEntries = getEntriesForMode("Workflow");
         const visibleEventIds = getVisibleEventIds();
+        const currentPerspective = state.perspective.perspective;
+        const currentPerspectiveEntry = getPerspectiveEntityEntry();
 
         const visibleDfEdges = edges.flatMap((edge) => {
+            if (edge.perspective === currentPerspective) {
+                return [{
+                    ...edge,
+                    edgeColor: currentPerspective === "Offer"
+                        ? OFFER_EDGE_COLORS[0]
+                        : PERSPECTIVE_EDGE_COLORS[currentPerspective] ?? getEntityColor(currentPerspective),
+                    edgePerspectiveLabel: currentPerspective,
+                    edgeEntityKey: currentPerspectiveEntry?.entityKey ?? state.perspective.entityKey,
+                    edgeEntityId: currentPerspectiveEntry?.entityId ?? state.perspective.entityId,
+                    edgePathOffset: PERSPECTIVE_PATH_OFFSETS[currentPerspective] ?? 0,
+                }];
+            }
+
             if (edge.perspective === "Application") {
                 return [{
                     ...edge,
@@ -444,31 +660,38 @@ function createMultiEntityState(localSample, expandedSample) {
             }];
         });
 
-        const expansionEntries = [
-            ...offerEntries.map((entry) => ({ entry, targetEntityType: "Offer" })),
-            ...workflowEntries.map((entry) => ({ entry, targetEntityType: "Workflow" })),
-        ];
+        const candidateExpansionEntries = state.mode === "expanded"
+            ? Array.from(expandedData.entityIndex.values())
+            : getExpandedEntityEntries();
+        const expansionEntries = candidateExpansionEntries.flatMap((entry) => {
+            const targetEntityType = getExpansionTargetForRelation(
+                state.perspective.perspective,
+                entry.entityType
+            );
+            return targetEntityType ? [{ entry, targetEntityType }] : [];
+        });
 
         const expansionAnchorEdges = expansionEntries.flatMap(({ entry, targetEntityType }) => {
-            const expansionAnchor = getExpansionAnchorPair(entry, targetEntityType);
-            if (!expansionAnchor) return [];
+            const expansionConnection = getExpansionConnectionPair(entry, targetEntityType);
+            if (!expansionConnection) return [];
 
-            const { anchorEvent, firstLifecycleEvent } = expansionAnchor;
-            if (!visibleEventIds.has(anchorEvent.id) || !visibleEventIds.has(firstLifecycleEvent.id)) return [];
+            const { sourceEvent, targetEvent } = expansionConnection;
+            if (sourceEvent.id === targetEvent.id) return [];
+            if (!visibleEventIds.has(sourceEvent.id) || !visibleEventIds.has(targetEvent.id)) return [];
 
             return [{
                 id: `expansion-anchor-${entry.entityKey}`,
-                source: anchorEvent.id,
-                target: firstLifecycleEvent.id,
-                source_activity: anchorEvent.activity,
-                target_activity: firstLifecycleEvent.activity,
+                source: sourceEvent.id,
+                target: targetEvent.id,
+                source_activity: sourceEvent.activity,
+                target_activity: targetEvent.activity,
                 source_coordinates: [
-                    secondsToDays(anchorEvent.timestamp_relative_seconds ?? 0),
-                    sharedRankedActivityByActivity.get(anchorEvent.activity) ?? anchorEvent.ranked_activity ?? anchorEvent.activity,
+                    secondsToDays(sourceEvent.timestamp_relative_seconds ?? 0),
+                    sharedRankedActivityByActivity.get(sourceEvent.activity) ?? sourceEvent.ranked_activity ?? sourceEvent.activity,
                 ],
                 target_coordinates: [
-                    secondsToDays(firstLifecycleEvent.timestamp_relative_seconds ?? 0),
-                    sharedRankedActivityByActivity.get(firstLifecycleEvent.activity) ?? firstLifecycleEvent.ranked_activity ?? firstLifecycleEvent.activity,
+                    secondsToDays(targetEvent.timestamp_relative_seconds ?? 0),
+                    sharedRankedActivityByActivity.get(targetEvent.activity) ?? targetEvent.ranked_activity ?? targetEvent.activity,
                 ],
                 entity: "ExpansionAnchor",
                 perspective: "ExpansionAnchor",
@@ -580,6 +803,7 @@ function createMultiEntityState(localSample, expandedSample) {
                 multiEntity: true,
                 mode: "expanded",
                 activityDomain: sharedActivityDomain,
+                xDomainDays: anchorXDomainDays,
                 graphFilters: getGraphFilters(),
             });
         }
@@ -588,13 +812,18 @@ function createMultiEntityState(localSample, expandedSample) {
                 multiEntity: true,
                 mode: "selective",
                 activityDomain: sharedActivityDomain,
+                xDomainDays: anchorXDomainDays,
                 graphFilters: getGraphFilters(),
             });
         }
-        return buildGraphPayload(buildScopedGraph(buildFilteredGraph(localData.graphData)), {
+        const localGraphSource = isAnchorPerspectiveEntity()
+            ? localData.graphData
+            : expandedData.graphData;
+        return buildGraphPayload(buildScopedGraph(buildFilteredGraph(localGraphSource)), {
             multiEntity: true,
             mode: "local",
             activityDomain: sharedActivityDomain,
+            xDomainDays: anchorXDomainDays,
             graphFilters: getGraphFilters(),
         });
     }
@@ -605,12 +834,16 @@ function createMultiEntityState(localSample, expandedSample) {
         getEventDetails,
         getEntityDetails,
         getExpandedEntityEntries,
+        getPerspectiveEntityEntry,
+        getPerspectiveLocalEventIds,
         getVisibleEventIds,
         isEntityEffectivelyExpanded,
         getVisibleGraphPayload,
         getGraphFilters,
         isGraphFilterActive,
         setMode,
+        setPerspectiveEntity,
+        resetPerspectiveEntity,
         toggleEntityExpansion,
         showAll,
         resetSelections,

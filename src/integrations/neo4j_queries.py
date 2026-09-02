@@ -90,8 +90,42 @@ ORDER BY e.timestamp, event_id, entity_type, entity_id
 
 
 ENTITY_INSTANCE_DF_QUERY = """
-MATCH (:Entity {EntityType: $entity_type, ID: $entity_id})<-[:CORR]-(e1:Event)-[df:DF]->(e2:Event)
+MATCH (:Entity {EntityType: $entity_type, ID: $entity_id})<-[:CORR]-(e1:Event)-[df:DF]->(e2:Event)-[:CORR]->(:Entity {EntityType: $entity_type, ID: $entity_id})
 WHERE df.EntityType = $entity_type
+RETURN e1.EventID AS source_event_id,
+       e1.Activity AS source_activity,
+       e1.timestamp AS source_timestamp,
+       e2.EventID AS target_event_id,
+       e2.Activity AS target_activity,
+       e2.timestamp AS target_timestamp,
+       df.EntityType AS perspective,
+       false AS source_is_anchor_event,
+       false AS target_is_anchor_event
+ORDER BY source_timestamp, source_event_id, target_event_id, perspective
+"""
+
+
+EXPANDED_ENTITY_CONTEXT_MEMBERSHIP_QUERY = """
+MATCH (:Entity {EntityType: $entity_type, ID: $entity_id})<-[:CORR]-(anchor_event:Event)
+WITH collect(DISTINCT anchor_event.case) AS related_cases
+UNWIND related_cases AS related_case
+MATCH (event_node:Event {case: related_case})-[:CORR]->(member_entity:Entity)
+RETURN event_node.EventID AS event_id,
+       event_node.Activity AS activity,
+       event_node.timestamp AS timestamp,
+       event_node.case AS case_id,
+       member_entity.EntityType AS entity_type,
+       member_entity.ID AS entity_id,
+       false AS is_anchor_event
+ORDER BY timestamp, event_id, entity_type, entity_id
+"""
+
+
+EXPANDED_ENTITY_CONTEXT_DF_QUERY = """
+MATCH (:Entity {EntityType: $entity_type, ID: $entity_id})<-[:CORR]-(anchor_event:Event)
+WITH collect(DISTINCT anchor_event.case) AS related_cases
+UNWIND related_cases AS related_case
+MATCH (e1:Event {case: related_case})-[df:DF]->(e2:Event {case: related_case})
 RETURN e1.EventID AS source_event_id,
        e1.Activity AS source_activity,
        e1.timestamp AS source_timestamp,
@@ -164,6 +198,66 @@ INSTANCE_SUMMARY_SORT_FIELDS = {
 }
 
 
+ENTITY_INSTANCE_SUMMARY_BASE_QUERY_TEMPLATE = """
+MATCH (entity:Entity {{EntityType: $entity_type}})
+WITH DISTINCT entity.ID AS entity_id
+WHERE $application_search = '' OR toLower(entity_id) CONTAINS toLower($application_search)
+MATCH (:Entity {{EntityType: $entity_type, ID: entity_id}})<-[:CORR]-(event_node:Event)
+WITH entity_id,
+     count(DISTINCT event_node.EventID) AS event_count,
+     min(event_node.timestamp) AS start_time,
+     max(event_node.timestamp) AS end_time,
+     sum(CASE WHEN event_node.Activity CONTAINS 'Cancel' THEN 1 ELSE 0 END) > 0 AS has_cancellation,
+     count(DISTINCT event_node.case) AS related_case_count
+CALL (entity_id) {{
+    MATCH (:Entity {{EntityType: $entity_type, ID: entity_id}})<-[:CORR]-(source_event:Event)-[df:DF]->(target_event:Event)
+    WHERE df.EntityType = $entity_type
+    RETURN count(df) AS df_edge_count
+}}
+WITH entity_id,
+     event_count,
+     df_edge_count,
+     related_case_count,
+     start_time,
+     end_time,
+     has_cancellation
+WHERE event_count >= $min_events
+  AND related_case_count >= $min_offers
+  AND ($only_cancelled = false OR has_cancellation)
+"""
+
+
+ENTITY_INSTANCE_SUMMARY_QUERY_TEMPLATE = ENTITY_INSTANCE_SUMMARY_BASE_QUERY_TEMPLATE + """
+RETURN entity_id,
+       event_count,
+       df_edge_count,
+       related_case_count,
+       start_time,
+       end_time,
+       has_cancellation
+ORDER BY {order_field} {order_direction}, entity_id ASC
+SKIP $skip
+LIMIT $limit
+"""
+
+
+ENTITY_INSTANCE_SUMMARY_COUNT_QUERY_TEMPLATE = ENTITY_INSTANCE_SUMMARY_BASE_QUERY_TEMPLATE + """
+RETURN count(*) AS total
+"""
+
+
+ENTITY_INSTANCE_SUMMARY_SORT_FIELDS = {
+    "event_count": "event_count",
+    "df_edge_count": "df_edge_count",
+    "offer_count": "related_case_count",
+    "start_time": "start_time",
+    "application_id": "entity_id",
+}
+
+
+ABSTRACTION_ENTITY_TYPES = {"Application", "Offer", "Workflow"}
+
+
 def _run_query(query, **parameters):
     """Run one Neo4j query and return records as dictionaries."""
     database = get_neo4j_database()
@@ -184,6 +278,13 @@ def _parse_page_parameters(page=1, page_size=20):
 def _normalize_sort_parameters(sort="event_count", order="desc"):
     """Return safe Cypher order tokens from user-provided values."""
     order_field = INSTANCE_SUMMARY_SORT_FIELDS.get(sort, "event_count")
+    order_direction = "ASC" if str(order).lower() == "asc" else "DESC"
+    return order_field, order_direction
+
+
+def _normalize_entity_sort_parameters(sort="event_count", order="desc"):
+    """Return safe Cypher order tokens for entity instance overview queries."""
+    order_field = ENTITY_INSTANCE_SUMMARY_SORT_FIELDS.get(sort, "event_count")
     order_direction = "ASC" if str(order).lower() == "asc" else "DESC"
     return order_field, order_direction
 
@@ -281,6 +382,7 @@ def fetch_application_instance_summaries(
         instances.append({
             "id": row["application_id"],
             "label": row["application_id"],
+            "entityType": "Application",
             "eventCount": row["event_count"],
             "dfEdgeCount": row["df_edge_count"],
             "offerCount": row["offer_count"],
@@ -296,6 +398,90 @@ def fetch_application_instance_summaries(
         "total": total,
         "sort": sort,
         "order": order_direction.lower(),
+        "entityType": "Application",
+        "filters": filters,
+        "instances": instances,
+    }
+
+
+def fetch_entity_instance_summaries(
+    entity_type,
+    page=1,
+    page_size=20,
+    sort="event_count",
+    order="desc",
+    application_search="",
+    min_events=0,
+    min_offers=0,
+    only_cancelled=False,
+):
+    """Fetch one page of lightweight Offer or Workflow instance summaries."""
+    if entity_type == "Application":
+        return fetch_application_instance_summaries(
+            page=page,
+            page_size=page_size,
+            sort=sort,
+            order=order,
+            application_search=application_search,
+            min_events=min_events,
+            min_offers=min_offers,
+            only_cancelled=only_cancelled,
+        )
+    if entity_type not in ABSTRACTION_ENTITY_TYPES:
+        raise ValueError(f"Unsupported abstraction entity type: {entity_type}")
+
+    normalized_page, normalized_page_size = _parse_page_parameters(page, page_size)
+    order_field, order_direction = _normalize_entity_sort_parameters(sort, order)
+    filters = _normalize_instance_filters(
+        application_search=application_search,
+        min_events=min_events,
+        min_offers=min_offers,
+        only_cancelled=only_cancelled,
+    )
+    query_parameters = {
+        **filters,
+        "entity_type": entity_type,
+        "skip": (normalized_page - 1) * normalized_page_size,
+        "limit": normalized_page_size,
+    }
+    rows = _run_query(
+        ENTITY_INSTANCE_SUMMARY_QUERY_TEMPLATE.format(
+            order_field=order_field,
+            order_direction=order_direction,
+        ),
+        **query_parameters,
+    )
+    total_rows = _run_query(
+        ENTITY_INSTANCE_SUMMARY_COUNT_QUERY_TEMPLATE.format(),
+        **query_parameters,
+    )
+    total = int(total_rows[0]["total"]) if total_rows else 0
+
+    instances = []
+    for row in rows:
+        start_time = row.get("start_time")
+        end_time = row.get("end_time")
+        instances.append({
+            "id": row["entity_id"],
+            "label": row["entity_id"],
+            "entityType": entity_type,
+            "eventCount": row["event_count"],
+            "dfEdgeCount": row["df_edge_count"],
+            "offerCount": row["related_case_count"],
+            "relatedCaseCount": row["related_case_count"],
+            "startTime": str(start_time) if start_time is not None else None,
+            "endTime": str(end_time) if end_time is not None else None,
+            "durationDays": _duration_days(start_time, end_time),
+            "hasCancellation": bool(row.get("has_cancellation")),
+        })
+
+    return {
+        "page": normalized_page,
+        "pageSize": normalized_page_size,
+        "total": total,
+        "sort": sort,
+        "order": order_direction.lower(),
+        "entityType": entity_type,
         "filters": filters,
         "instances": instances,
     }
@@ -357,6 +543,24 @@ def fetch_entity_instance_df_edges(entity_type, entity_id):
     )
 
 
+def fetch_expanded_entity_context_memberships(entity_type, entity_id):
+    """Fetch the full case context around one selected Offer or Workflow instance."""
+    return _run_query(
+        EXPANDED_ENTITY_CONTEXT_MEMBERSHIP_QUERY,
+        entity_type=entity_type,
+        entity_id=entity_id,
+    )
+
+
+def fetch_expanded_entity_context_df_edges(entity_type, entity_id):
+    """Fetch all same-case DF edges around one selected Offer or Workflow instance."""
+    return _run_query(
+        EXPANDED_ENTITY_CONTEXT_DF_QUERY,
+        entity_type=entity_type,
+        entity_id=entity_id,
+    )
+
+
 def _get_mode_payload(
     mode,
     application_id,
@@ -401,6 +605,31 @@ def build_anchor_application_sample_payload(
         application_id,
         selected_perspectives=selected_perspectives,
     )
+
+
+def build_entity_instance_sample_payload(entity_type, entity_id, mode="local"):
+    """Build a payload for one selected entity lifecycle."""
+    if entity_type not in ABSTRACTION_ENTITY_TYPES:
+        raise ValueError(f"Unsupported entity type: {entity_type}")
+    if mode not in {"local", "expanded"}:
+        raise ValueError(f"Unsupported mode: {mode}")
+
+    if mode == "expanded":
+        memberships = fetch_expanded_entity_context_memberships(entity_type, entity_id)
+        df_edges = fetch_expanded_entity_context_df_edges(entity_type, entity_id)
+    else:
+        memberships = fetch_entity_instance_memberships(entity_type, entity_id)
+        df_edges = fetch_entity_instance_df_edges(entity_type, entity_id)
+    return {
+        "mode": mode,
+        "anchor": {
+            "entityType": entity_type,
+            "entityId": entity_id,
+        },
+        "selectedPerspectives": [entity_type],
+        "memberships": memberships,
+        "dfEdges": df_edges,
+    }
 
 
 def export_anchor_application_sample(

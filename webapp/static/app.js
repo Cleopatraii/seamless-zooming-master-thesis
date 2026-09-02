@@ -5,7 +5,17 @@ SEAMLESS_ZOOM — A technique for seamless zooming between process models and pr
 import { exportData } from './utils/exportData.mjs';
 import { TIMEORDERMAP, resetPersistedXZoom } from './views/timeOrderMap.js';
 import { SPACEORDERMAP } from './views/spaceOrderMap.js';
+import { bindAggregateEdgePopupInteractions, hideAggregateEdgePopup } from './components/aggregateEdgePopup.mjs';
 import { createMultiEntityState } from './utils/multiEntityState.mjs';
+import {
+    buildAggregateComparisonPayload,
+    buildAggregateGroupPayload,
+    buildAggregateGroupComparisonPayload,
+    buildSelectedInstanceOverlay,
+    buildSelectedInstanceOverlayPayload,
+    createAggregateGroupFromOverlay,
+    summarizeAggregateInstances,
+} from './utils/multiEntityAggregation.mjs';
 import {
     VISIBLE_ENTITY_CATEGORIES,
     getEntityColor,
@@ -18,8 +28,18 @@ import {
 let currentGraphViewSelection = 0;
 let currentRenderedData = null;
 let currentMultiEntityController = null;
+let currentAnalysisMode = "instance";
+let abstractionPerspective = "Application";
 let availableMultiEntityInstances = [];
+let knownMultiEntityInstancesById = new Map();
 let selectedMultiEntityInstanceId = null;
+let selectedAggregateInstanceIds = new Set();
+let currentSelectedInstanceOverlay = null;
+let currentAggregateDraft = null;
+let aggregateGroups = [];
+let activeAggregateGroupId = null;
+const MAX_AGGREGATE_GROUPS = 3;
+const ABSTRACTION_PERSPECTIVES = ["Application", "Offer", "Workflow"];
 let instanceOverviewState = {
     page: 1,
     pageSize: 10,
@@ -47,15 +67,651 @@ function formatDuration(value) {
 }
 
 
+function getBrowserEntityType() {
+    return currentAnalysisMode === "abstraction" ? abstractionPerspective : "Application";
+}
+
+
+function getEntityTypeLabel(entityType = getBrowserEntityType()) {
+    return entityType === "Application" ? "Application case" : `${entityType} instance`;
+}
+
+
+function getEntityTypePluralLabel(entityType = getBrowserEntityType()) {
+    return entityType === "Application" ? "Application cases" : `${entityType} instances`;
+}
+
+
+function getRelatedCountLabel(entityType = getBrowserEntityType()) {
+    return entityType === "Application" ? "Offers" : "Related cases";
+}
+
+
+function getInstanceDisplayLabel(instance, fallbackEntityType = getBrowserEntityType()) {
+    const entityType = instance?.entityType ?? fallbackEntityType;
+    const id = instance?.id ?? "";
+    if (entityType === "Workflow") {
+        return id.replace(/^Application_/, "Workflow_");
+    }
+    return id;
+}
+
+
 function describeInstance(instance) {
     if (!instance) return "No instance selected";
     const metrics = [];
+    if (instance.entityType && instance.entityType !== "Application") metrics.push(instance.entityType);
     if (instance.eventCount != null) metrics.push(`${instance.eventCount} events`);
     if (instance.dfEdgeCount != null) metrics.push(`${instance.dfEdgeCount} DF edges`);
-    if (instance.offerCount != null) metrics.push(`${instance.offerCount} offers`);
+    if (instance.entityType === "Application" && instance.offerCount != null) {
+        metrics.push(`${instance.offerCount} offers`);
+    } else if (instance.relatedCaseCount != null) {
+        metrics.push(`${instance.relatedCaseCount} related cases`);
+    }
     if (instance.durationDays != null) metrics.push(`${formatDuration(instance.durationDays)} duration`);
     if (instance.description) metrics.push(instance.description);
-    return `${instance.id}${metrics.length > 0 ? " · " + metrics.join(" · ") : ""}`;
+    return `${getInstanceDisplayLabel(instance)}${metrics.length > 0 ? " · " + metrics.join(" · ") : ""}`;
+}
+
+
+function getKnownInstance(instanceId) {
+    return knownMultiEntityInstancesById.get(instanceId) ?? {
+        id: instanceId,
+        label: instanceId,
+        entityType: getBrowserEntityType(),
+    };
+}
+
+
+function getSelectedAggregateInstances() {
+    return Array.from(selectedAggregateInstanceIds, getKnownInstance);
+}
+
+
+function getActiveAggregateGroup() {
+    return aggregateGroups.find((group) => group.id === activeAggregateGroupId) ?? null;
+}
+
+
+function getAggregateGroupById(groupId) {
+    return aggregateGroups.find((group) => group.id === groupId) ?? null;
+}
+
+
+function getAggregateGroupNumber(group) {
+    const groupNumber = Number.parseInt(String(group?.id ?? "").replace("group-", ""), 10);
+    return Number.isFinite(groupNumber) ? groupNumber : null;
+}
+
+
+function getNextAggregateGroupNumber() {
+    const usedNumbers = new Set(aggregateGroups.map(getAggregateGroupNumber).filter(Boolean));
+    for (let groupNumber = 1; groupNumber <= MAX_AGGREGATE_GROUPS; groupNumber += 1) {
+        if (!usedNumbers.has(groupNumber)) return groupNumber;
+    }
+    return null;
+}
+
+
+function getAggregateGroupForInstance(instanceId) {
+    return aggregateGroups.find((group) => group.instanceIds.includes(instanceId)) ?? null;
+}
+
+
+function getSelectedInstancesOutsideActiveGroup() {
+    const activeGroup = getActiveAggregateGroup();
+    const activeGroupIds = new Set(activeGroup?.instanceIds ?? []);
+    return getSelectedAggregateInstances().filter((instance) => (
+        !activeGroupIds.has(instance.id) && !getAggregateGroupForInstance(instance.id)
+    ));
+}
+
+function haveSameInstanceIds(leftIds = [], rightIds = []) {
+    if (leftIds.length !== rightIds.length) return false;
+    const rightIdSet = new Set(rightIds);
+    return leftIds.every((instanceId) => rightIdSet.has(instanceId));
+}
+
+
+function clearAbstractionState() {
+    selectedAggregateInstanceIds.clear();
+    currentSelectedInstanceOverlay = null;
+    currentAggregateDraft = null;
+    aggregateGroups = [];
+    activeAggregateGroupId = null;
+}
+
+
+async function setAbstractionPerspective(perspective) {
+    if (!ABSTRACTION_PERSPECTIVES.includes(perspective) || perspective === abstractionPerspective) return;
+
+    abstractionPerspective = perspective;
+    clearAbstractionState();
+    knownMultiEntityInstancesById = new Map();
+    availableMultiEntityInstances = [];
+    instanceOverviewState = {
+        ...instanceOverviewState,
+        page: 1,
+        total: 0,
+        applicationSearch: "",
+        minEvents: "",
+        minOffers: "",
+        onlyCancelled: false,
+        warning: null,
+    };
+
+    currentMultiEntityController = null;
+    currentRenderedData = null;
+    updatePerspectiveControlFromState();
+    await loadAvailableMultiEntityInstances();
+    renderAbstractionEmptyState();
+    renderInstanceBrowser();
+}
+
+
+function describeAggregateSummary(summary = {}) {
+    const parts = [`${summary.caseCount ?? 0} ${getEntityTypePluralLabel()}`];
+    if (summary.totalEvents != null) parts.push(`${summary.totalEvents} events`);
+    if (summary.totalDfEdges != null) parts.push(`${summary.totalDfEdges} DF edges`);
+    if (summary.totalOffers != null) parts.push(`${summary.totalOffers} ${getRelatedCountLabel().toLowerCase()}`);
+    if (summary.cancelledCount != null) parts.push(`${summary.cancelledCount} cancelled`);
+    if (summary.averageDuration != null) parts.push(`${formatDuration(summary.averageDuration)} avg duration`);
+    return parts.join(" · ");
+}
+
+
+function describeSelectedInstanceOverlay(overlay) {
+    if (!overlay) return "";
+    return `Overlay ready: ${overlay.instanceIds.length}`;
+}
+
+
+function renderSelectedInstanceOverlayDetails(overlay) {
+    const status = document.getElementById("multi-entity-status");
+    const details = document.getElementById("multi-entity-details");
+    const selectedList = document.getElementById("multi-entity-selected");
+    const summary = document.getElementById("current-instance-summary");
+
+    if (status) {
+        status.textContent = `Scope: selected instance overlay · ${describeAggregateSummary(overlay.summary)}`;
+    }
+    if (summary) {
+        summary.textContent = `Overlay: ${describeAggregateSummary(overlay.summary)}`;
+    }
+    if (selectedList) {
+        selectedList.innerHTML = overlay.instanceIds
+            .map((instanceId) => `<div class="entity-pill"><span>${instanceId}</span></div>`)
+            .join("");
+    }
+    if (details) {
+        details.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-title">Selected instance overlay</div>
+                <div class="detail-meta">${describeAggregateSummary(overlay.summary)}</div>
+                <div class="detail-section-title">Included ${getEntityTypePluralLabel()}</div>
+                ${overlay.instanceIds.map((instanceId) => `
+                    <div class="membership-row membership-row-muted">
+                        <div class="membership-id">${instanceId}</div>
+                    </div>
+                `).join("")}
+                <p class="multi-entity-muted">
+                    This first overlay view is for visual comparison before aggregation; event-level expand actions remain available in the single-instance view.
+                </p>
+            </div>
+        `;
+    }
+}
+
+
+function renderAggregateGroupsList() {
+    const selectedList = document.getElementById("multi-entity-selected");
+    if (!selectedList) return;
+    if (aggregateGroups.length === 0) {
+        selectedList.innerHTML = '<p class="multi-entity-muted">No aggregate groups created yet.</p>';
+        return;
+    }
+
+    const activeGroup = getActiveAggregateGroup();
+    selectedList.innerHTML = aggregateGroups.map((group) => {
+        const isActive = group.id === activeAggregateGroupId;
+        const canCompareWithActive = Boolean(activeGroup) && !isActive;
+        return `
+        <div class="aggregate-group-card ${isActive ? "active" : ""}">
+            <div>
+                <div class="aggregate-group-title-row">
+                    <span class="aggregate-comparison-swatch" style="background:${group.color}"></span>
+                    <strong>${group.name}</strong>
+                </div>
+                <div class="membership-id">${describeAggregateSummary(group.summary)}</div>
+            </div>
+            <div class="aggregate-group-actions">
+                <button type="button" class="aggregate-group-show" data-group-id="${group.id}">
+                    Show aggregate
+                </button>
+                ${canCompareWithActive ? `
+                    <button type="button" class="aggregate-group-compare" data-group-id="${group.id}">
+                        Compare with active
+                    </button>
+                    <button type="button" class="aggregate-group-merge" data-group-id="${group.id}">
+                        Merge into active
+                    </button>
+                ` : ""}
+                <button type="button" class="aggregate-group-dissolve" data-group-id="${group.id}">
+                    Dissolve group
+                </button>
+            </div>
+        </div>
+    `}).join("");
+
+    selectedList.querySelectorAll(".aggregate-group-show").forEach((button) => {
+        button.addEventListener("click", () => {
+            const group = getAggregateGroupById(button.dataset.groupId);
+            if (!group) return;
+            showAggregateGroup(group);
+        });
+    });
+
+    selectedList.querySelectorAll(".aggregate-group-compare").forEach((button) => {
+        button.addEventListener("click", () => {
+            const group = getAggregateGroupById(button.dataset.groupId);
+            const active = getActiveAggregateGroup();
+            if (!group || !active || group.id === active.id) return;
+            showAggregateGroupComparison(group, active);
+        });
+    });
+
+    selectedList.querySelectorAll(".aggregate-group-merge").forEach((button) => {
+        button.addEventListener("click", () => {
+            mergeGroupIntoActiveGroup(button.dataset.groupId).catch((err) => {
+                console.error("Failed to merge aggregate group:", err);
+                showMultiEntityError(String(err?.message ?? err));
+            });
+        });
+    });
+
+    selectedList.querySelectorAll(".aggregate-group-dissolve").forEach((button) => {
+        button.addEventListener("click", () => {
+            dissolveAggregateGroup(button.dataset.groupId);
+        });
+    });
+}
+
+
+function renderAggregateGroupDetails(group) {
+    const status = document.getElementById("multi-entity-status");
+    const details = document.getElementById("multi-entity-details");
+    const summary = document.getElementById("current-instance-summary");
+
+    if (status) {
+        status.textContent = `Scope: aggregate group · ${group.name} · ${describeAggregateSummary(group.summary)}`;
+    }
+    if (summary) {
+        summary.textContent = `${group.name}: ${describeAggregateSummary(group.summary)}`;
+    }
+    renderAggregateGroupsList();
+    if (details) {
+        details.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-title">${group.name}</div>
+                <div class="detail-meta">${describeAggregateSummary(group.summary)}</div>
+                <div class="detail-section-title">Aggregation semantics</div>
+                <p class="multi-entity-muted">
+                    Nodes summarize activities across the selected ${getEntityTypePluralLabel()}. Edges summarize ${abstractionPerspective} directly-follows transitions; thicker edges occur in more selected instances.
+                </p>
+                <div class="detail-section-title">Included ${getEntityTypePluralLabel()}</div>
+                ${group.instanceIds.map((instanceId) => `
+                    <div class="membership-row membership-row-muted">
+                        <div class="membership-id">${instanceId}</div>
+                    </div>
+                `).join("")}
+            </div>
+        `;
+    }
+}
+
+
+function renderAggregateComparisonDetails(group, candidateInstances) {
+    const status = document.getElementById("multi-entity-status");
+    const details = document.getElementById("multi-entity-details");
+    const selectedList = document.getElementById("multi-entity-selected");
+    const summary = document.getElementById("current-instance-summary");
+    const candidateSummary = summarizeAggregateInstances(candidateInstances);
+
+    if (status) {
+        status.textContent = `Scope: aggregate comparison · ${group.name} vs ${candidateInstances.length} selected ${getEntityTypePluralLabel()}`;
+    }
+    if (summary) {
+        summary.textContent = `${group.name} compared with selected ${getEntityTypePluralLabel()}`;
+    }
+    if (selectedList) {
+        selectedList.innerHTML = `
+            <div class="aggregate-group-card active">
+                <div class="aggregate-group-title-row">
+                    <span class="aggregate-comparison-swatch" style="background:${group.color}"></span>
+                    <strong>${group.name}</strong>
+                </div>
+                <div class="membership-id">${describeAggregateSummary(group.summary)}</div>
+            </div>
+            <div class="aggregate-group-card aggregate-candidate-card">
+                <strong>Selected candidate ${getEntityTypePluralLabel()}</strong>
+                <div class="membership-id">${describeAggregateSummary(candidateSummary)}</div>
+            </div>
+        `;
+    }
+    if (details) {
+        details.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-title">Aggregate comparison</div>
+                <div class="detail-meta">${group.name} is shown together with the selected candidate ${getEntityTypePluralLabel()}.</div>
+                <div class="detail-section-title">Current aggregate group</div>
+                <div class="membership-row membership-row-muted">
+                    <div class="membership-id">${describeAggregateSummary(group.summary)}</div>
+                </div>
+                <div class="detail-section-title">Candidate ${getEntityTypePluralLabel()}</div>
+                ${candidateInstances.map((instance) => `
+                    <div class="membership-row membership-row-muted">
+                        <div class="membership-id">${instance.id}</div>
+                    </div>
+                `).join("")}
+                <p class="multi-entity-muted">
+                    If the candidate behavior looks compatible with the aggregate pattern, use "Add selected to active group".
+                </p>
+                <button type="button" id="button-show-comparison-full-range" class="detail-action-button">
+                    Show full range
+                </button>
+                <button type="button" id="button-restore-comparison-range" class="detail-action-button detail-action-button-secondary">
+                    Restore comparison range
+                </button>
+            </div>
+        `;
+        details.querySelector("#button-show-comparison-full-range")?.addEventListener("click", () => {
+            showAggregateComparisonFullRange();
+        });
+        details.querySelector("#button-restore-comparison-range")?.addEventListener("click", () => {
+            restoreAggregateComparisonRange();
+        });
+    }
+}
+
+
+function renderAggregateGroupComparisonDetails(groupA, groupB) {
+    const status = document.getElementById("multi-entity-status");
+    const details = document.getElementById("multi-entity-details");
+    const summary = document.getElementById("current-instance-summary");
+
+    if (status) {
+        status.textContent = `Scope: group comparison · ${groupA.name} vs ${groupB.name}`;
+    }
+    if (summary) {
+        summary.textContent = `${groupA.name} compared with ${groupB.name}`;
+    }
+    renderAggregateGroupsList();
+    if (details) {
+        details.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-title">Aggregate group comparison</div>
+                <div class="detail-meta">
+                    Two user-defined aggregate groups are shown in the same Time-Order Map layout.
+                </div>
+                <div class="detail-section-title">Compared groups</div>
+                <div class="aggregate-comparison-legend-row">
+                    <span class="aggregate-comparison-swatch" style="background:${groupA.color}"></span>
+                    <div>
+                        <strong>${groupA.name}</strong>
+                        <div class="membership-id">${describeAggregateSummary(groupA.summary)}</div>
+                    </div>
+                </div>
+                <div class="aggregate-comparison-legend-row">
+                    <span class="aggregate-comparison-swatch" style="background:${groupB.color}"></span>
+                    <div>
+                        <strong>${groupB.name}</strong>
+                        <div class="membership-id">${describeAggregateSummary(groupB.summary)}</div>
+                    </div>
+                </div>
+                <p class="multi-entity-muted">
+                    Click an aggregated edge to inspect its frequency, duration, and involved instances for the group it belongs to.
+                </p>
+                <button type="button" id="button-show-comparison-full-range" class="detail-action-button">
+                    Show full range
+                </button>
+                <button type="button" id="button-restore-comparison-range" class="detail-action-button detail-action-button-secondary">
+                    Restore comparison range
+                </button>
+            </div>
+        `;
+        details.querySelector("#button-show-comparison-full-range")?.addEventListener("click", () => {
+            showAggregateComparisonFullRange();
+        });
+        details.querySelector("#button-restore-comparison-range")?.addEventListener("click", () => {
+            restoreAggregateComparisonRange();
+        });
+    }
+}
+
+
+function isAggregateComparisonMode(mode) {
+    return mode === "aggregate-comparison" || mode === "aggregate-group-comparison";
+}
+
+
+function renderCurrentAggregateComparisonDetails() {
+    const mode = currentRenderedData?.meta?.mode;
+    if (mode === "aggregate-comparison") {
+        const activeGroup = getActiveAggregateGroup();
+        const candidateInstances = (currentSelectedInstanceOverlay?.instanceIds ?? []).map(getKnownInstance);
+        if (activeGroup) renderAggregateComparisonDetails(activeGroup, candidateInstances);
+        return;
+    }
+
+    if (mode === "aggregate-group-comparison") {
+        const groupA = aggregateGroups.find((group) => group.id === currentRenderedData?.meta?.aggregateGroupId);
+        const groupB = aggregateGroups.find((group) => group.id === currentRenderedData?.meta?.comparisonGroupId);
+        if (groupA && groupB) renderAggregateGroupComparisonDetails(groupA, groupB);
+    }
+}
+
+
+function showAggregateComparisonFullRange() {
+    const fullRange = currentRenderedData?.meta?.comparisonFullXDomainDays;
+    if (
+        !isAggregateComparisonMode(currentRenderedData?.meta?.mode) ||
+        !Array.isArray(fullRange) ||
+        fullRange.length !== 2
+    ) {
+        return;
+    }
+
+    const xDomainDays = fullRange.map(Number);
+    if (!xDomainDays.every(Number.isFinite)) return;
+    currentRenderedData.meta.comparisonFocusedXDomainDays = currentRenderedData.meta.comparisonFocusedXDomainDays
+        ?? currentRenderedData.meta.xDomainDays?.slice();
+    currentRenderedData.meta.isShowingComparisonFullRange = true;
+    currentRenderedData.meta.xDomainDays = xDomainDays;
+    resetPersistedXZoom();
+    renderCurrentGraph();
+    renderCurrentAggregateComparisonDetails();
+}
+
+
+function restoreAggregateComparisonRange() {
+    const focusedRange = currentRenderedData?.meta?.comparisonFocusedXDomainDays;
+    if (
+        !isAggregateComparisonMode(currentRenderedData?.meta?.mode) ||
+        !Array.isArray(focusedRange) ||
+        focusedRange.length !== 2
+    ) {
+        return;
+    }
+
+    const xDomainDays = focusedRange.map(Number);
+    if (!xDomainDays.every(Number.isFinite)) return;
+    currentRenderedData.meta.xDomainDays = xDomainDays;
+    currentRenderedData.meta.isShowingComparisonFullRange = false;
+    resetPersistedXZoom();
+    renderCurrentGraph();
+    renderCurrentAggregateComparisonDetails();
+}
+
+
+function renderAggregateSelectionControls() {
+    const status = document.getElementById("instance-aggregate-status");
+    const showButton = document.getElementById("button-show-selected-instances");
+    const aggregateButton = document.getElementById("button-aggregate-selected-instances");
+    const addToActiveButton = document.getElementById("button-add-selected-to-active-group");
+    const clearButton = document.getElementById("button-clear-aggregate-selection");
+    const selectedInstances = getSelectedAggregateInstances();
+    const selectedSummary = summarizeAggregateInstances(selectedInstances);
+    const activeGroup = getActiveAggregateGroup();
+    const candidatesOutsideActiveGroup = getSelectedInstancesOutsideActiveGroup();
+    const hasReachedGroupLimit = getNextAggregateGroupNumber() == null;
+
+    if (status) {
+        const selectionText = selectedInstances.length === 0
+            ? `Select ${getEntityTypePluralLabel()}, show them together, then decide whether to aggregate.`
+            : `Selected: ${describeAggregateSummary(selectedSummary)}`;
+        const overlayText = currentSelectedInstanceOverlay
+            ? ` ${describeSelectedInstanceOverlay(currentSelectedInstanceOverlay)}`
+            : "";
+        const draftText = currentAggregateDraft
+            ? ` Current aggregate draft: ${describeAggregateSummary(currentAggregateDraft)}`
+            : "";
+        const activeGroupText = activeGroup
+            ? ` Active group: ${activeGroup.name}.`
+            : "";
+        const groupLimitText = hasReachedGroupLimit
+            ? ` Prototype limit: up to ${MAX_AGGREGATE_GROUPS} aggregate groups.`
+            : "";
+        status.textContent = `${selectionText}${overlayText}${draftText}${activeGroupText}${groupLimitText}`;
+    }
+    if (showButton) {
+        showButton.disabled = selectedInstances.length === 0;
+    }
+    if (aggregateButton) {
+        const selectedInstancesOutsideGroups = selectedInstances.filter((instance) => (
+            !getAggregateGroupForInstance(instance.id)
+        ));
+        aggregateButton.disabled = hasReachedGroupLimit
+            || selectedInstancesOutsideGroups.length < 2;
+    }
+    if (addToActiveButton) {
+        addToActiveButton.disabled = !activeGroup || candidatesOutsideActiveGroup.length === 0;
+    }
+    if (clearButton) {
+        clearButton.disabled = selectedInstances.length === 0
+            && !currentSelectedInstanceOverlay
+            && !currentAggregateDraft;
+    }
+}
+
+
+function rebuildAggregateGroup(group) {
+    group.summary = summarizeAggregateInstances(group.instanceIds.map(getKnownInstance));
+    group.aggregatePayload = buildAggregateGroupPayload(group);
+    currentAggregateDraft = group.summary;
+}
+
+
+async function mergeGroupIntoActiveGroup(sourceGroupId) {
+    if (currentAnalysisMode !== "abstraction") return;
+    const activeGroup = getActiveAggregateGroup();
+    const sourceGroup = getAggregateGroupById(sourceGroupId);
+    if (!activeGroup || !sourceGroup || activeGroup.id === sourceGroup.id) return;
+    if ((activeGroup.perspective ?? "Application") !== (sourceGroup.perspective ?? "Application")) return;
+
+    const mergedInstanceIds = Array.from(new Set([
+        ...activeGroup.instanceIds,
+        ...sourceGroup.instanceIds,
+    ]));
+    const payloadByInstanceId = new Map();
+    [...activeGroup.instancePayloads, ...sourceGroup.instancePayloads].forEach((entry) => {
+        const instanceId = entry?.instance?.id;
+        if (instanceId && !payloadByInstanceId.has(instanceId)) {
+            payloadByInstanceId.set(instanceId, entry);
+        }
+    });
+
+    const missingPayloads = await Promise.all(
+        mergedInstanceIds
+            .filter((instanceId) => !payloadByInstanceId.has(instanceId))
+            .map((instanceId) => loadLocalInstancePayload(getKnownInstance(instanceId)))
+    );
+    missingPayloads.forEach((entry) => {
+        payloadByInstanceId.set(entry.instance.id, entry);
+    });
+
+    activeGroup.instanceIds = mergedInstanceIds;
+    activeGroup.instancePayloads = mergedInstanceIds
+        .map((instanceId) => payloadByInstanceId.get(instanceId))
+        .filter(Boolean);
+    rebuildAggregateGroup(activeGroup);
+    removeGroupFromList(sourceGroup.id);
+    currentSelectedInstanceOverlay = null;
+    activeAggregateGroupId = activeGroup.id;
+    showAggregateGroup(activeGroup);
+}
+
+
+function dissolveAggregateGroup(groupId) {
+    if (currentAnalysisMode !== "abstraction") return;
+    const group = getAggregateGroupById(groupId);
+    if (!group) return;
+
+    const wasActive = group.id === activeAggregateGroupId;
+    const wasShownInCurrentComparison = [
+        currentRenderedData?.meta?.aggregateGroupId,
+        currentRenderedData?.meta?.comparisonGroupId,
+    ].includes(group.id);
+    removeGroupFromList(group.id);
+    currentSelectedInstanceOverlay = null;
+    currentAggregateDraft = null;
+
+    if (wasActive || wasShownInCurrentComparison) {
+        activeAggregateGroupId = aggregateGroups[0]?.id ?? null;
+        const nextActiveGroup = getActiveAggregateGroup();
+        if (nextActiveGroup) {
+            showAggregateGroup(nextActiveGroup);
+            return;
+        }
+        currentRenderedData = null;
+        d3.select("#chart").selectAll("*").remove();
+        const status = document.getElementById("multi-entity-status");
+        const summary = document.getElementById("current-instance-summary");
+        const details = document.getElementById("multi-entity-details");
+        if (status) {
+            status.textContent = "Scope: abstraction · no aggregate group selected";
+        }
+        if (summary) {
+            summary.textContent = "No aggregate group selected";
+        }
+        if (details) {
+            details.innerHTML = `
+                <div class="detail-card">
+                    <div class="detail-title">No aggregate group</div>
+                    <div class="detail-meta">
+                        Select ${getEntityTypePluralLabel()}, show them together, then aggregate them into a new group.
+                    </div>
+                </div>
+            `;
+        }
+        renderAggregateGroupsList();
+        renderAggregateSelectionControls();
+        renderInstanceBrowser();
+        return;
+    }
+
+    renderAggregateGroupsList();
+    renderAggregateSelectionControls();
+    renderInstanceBrowser();
+}
+
+
+function removeGroupFromList(groupId) {
+    aggregateGroups = aggregateGroups.filter((group) => group.id !== groupId);
+    selectedAggregateInstanceIds = new Set(
+        Array.from(selectedAggregateInstanceIds).filter((instanceId) => (
+            !getAggregateGroupForInstance(instanceId)
+        ))
+    );
 }
 
 
@@ -84,6 +740,113 @@ function showMultiEntityError(message) {
             </div>
         `;
     }
+}
+
+
+function renderAbstractionEmptyState() {
+    currentMultiEntityController = null;
+    currentRenderedData = null;
+    d3.select("#chart").selectAll("*").remove();
+    setMultiEntityPanelVisibility(true);
+    renderMultiEntityLegend();
+    renderAggregateGroupsList();
+    renderAggregateSelectionControls();
+
+    const status = document.getElementById("multi-entity-status");
+    const summary = document.getElementById("current-instance-summary");
+    const details = document.getElementById("multi-entity-details");
+
+    if (status) {
+        status.textContent = `Scope: abstraction · ${abstractionPerspective} perspective · no selected ${getEntityTypePluralLabel()}`;
+    }
+    if (summary) {
+        summary.textContent = `${abstractionPerspective} abstraction · select ${getEntityTypePluralLabel()} to compare or aggregate.`;
+    }
+    if (details) {
+        details.innerHTML = `
+            <div class="detail-card">
+                <div class="detail-title">${abstractionPerspective} abstraction</div>
+                <div class="detail-meta">
+                    Select ${getEntityTypePluralLabel()} in the browser, then use "Show selected instances" or "Aggregate selected".
+                </div>
+                <p class="multi-entity-muted">
+                    Workflow IDs may look like Application IDs in BPIC17 because the Workflow entity reuses the Application identifier in the source graph.
+                </p>
+            </div>
+        `;
+    }
+}
+
+
+function updateAnalysisModeButtons() {
+    document.getElementById("button-mode-instance")
+        ?.classList.toggle("active", currentAnalysisMode === "instance");
+    document.getElementById("button-mode-abstraction")
+        ?.classList.toggle("active", currentAnalysisMode === "abstraction");
+    document.body.classList.toggle("analysis-mode-instance", currentAnalysisMode === "instance");
+    document.body.classList.toggle("analysis-mode-abstraction", currentAnalysisMode === "abstraction");
+    const scopeControls = document.getElementById("multi-entity-scope-controls");
+    if (scopeControls) {
+        scopeControls.style.display = currentAnalysisMode === "instance" ? "" : "none";
+    }
+}
+
+
+function setAnalysisMode(mode) {
+    currentAnalysisMode = mode;
+    updateAnalysisModeButtons();
+    updatePerspectiveControlFromState();
+}
+
+
+async function enterInstanceMode() {
+    setAnalysisMode("instance");
+    setInstanceBrowserOpen(false);
+    if (!currentMultiEntityController && selectedMultiEntityInstanceId) {
+        await switchMultiEntityInstance(selectedMultiEntityInstanceId);
+        return;
+    }
+    renderCurrentInstanceNavigator();
+}
+
+
+function restoreSelectedInstanceOverlay() {
+    if (!currentSelectedInstanceOverlay?.payload) return false;
+
+    const activeGroup = getActiveAggregateGroup();
+    const candidateInstances = currentSelectedInstanceOverlay.instanceIds.map(getKnownInstance);
+    currentMultiEntityController = null;
+    currentRenderedData = currentSelectedInstanceOverlay.payload;
+    setMultiEntityPanelVisibility(true);
+    renderMultiEntityLegend();
+    renderCurrentGraph();
+
+    if (activeGroup) {
+        renderAggregateComparisonDetails(activeGroup, candidateInstances);
+    } else {
+        renderSelectedInstanceOverlayDetails(currentSelectedInstanceOverlay);
+    }
+    renderAggregateSelectionControls();
+    return true;
+}
+
+
+async function enterAbstractionMode() {
+    setAnalysisMode("abstraction");
+    await loadAvailableMultiEntityInstances();
+    setInstanceBrowserOpen(true);
+
+    if (restoreSelectedInstanceOverlay()) return;
+
+    const activeGroup = getActiveAggregateGroup();
+    if (activeGroup) {
+        showAggregateGroup(activeGroup);
+        return;
+    }
+
+    renderAggregateGroupsList();
+    renderAggregateSelectionControls();
+    renderAbstractionEmptyState();
 }
 
 
@@ -187,6 +950,98 @@ function renderMultiEntityLegend() {
 }
 
 
+function getPerspectiveEntityOptions() {
+    if (!currentMultiEntityController) return [];
+
+    const { state } = currentMultiEntityController;
+    const entries = Array.from(state.expandedData.entityIndex.values());
+    const optionMap = new Map();
+    const addOption = ({ perspective, entityType, entityId, entityKey }) => {
+        if (!entityType || !entityId || !entityKey || optionMap.has(entityKey)) return;
+        optionMap.set(entityKey, {
+            perspective: perspective ?? entityType,
+            entityType,
+            entityId,
+            entityKey,
+        });
+    };
+
+    addOption({
+        perspective: "Application",
+        entityType: state.anchor?.entityType ?? "Application",
+        entityId: state.anchor?.entityId,
+        entityKey: `${state.anchor?.entityType ?? "Application"}::${state.anchor?.entityId}`,
+    });
+
+    entries
+        .filter((entry) => ["Offer", "Workflow"].includes(entry.entityType))
+        .sort((entryA, entryB) => {
+            const typeDelta = entryA.entityType.localeCompare(entryB.entityType);
+            return typeDelta !== 0 ? typeDelta : entryA.entityId.localeCompare(entryB.entityId);
+        })
+        .forEach((entry) => {
+            addOption({
+                perspective: entry.entityType,
+                entityType: entry.entityType,
+                entityId: entry.entityId,
+                entityKey: entry.entityKey,
+            });
+        });
+
+    return Array.from(optionMap.values());
+}
+
+
+function formatPerspectiveOption(option) {
+    if (!option) return "";
+    if (option.entityType === "Application") {
+        return `Application perspective: ${option.entityId}`;
+    }
+    return `${option.entityType} perspective: ${option.entityId}`;
+}
+
+
+function updatePerspectiveControlFromState() {
+    const select = document.getElementById("multi-entity-perspective-select");
+    const label = document.getElementById("multi-entity-perspective-label");
+    const description = document.getElementById("multi-entity-perspective-description");
+    if (!select) return;
+
+    if (currentAnalysisMode === "abstraction") {
+        if (label) label.textContent = "Abstraction-level perspective";
+        if (description) {
+            description.textContent = `Aggregate selected ${getEntityTypePluralLabel()} by ${abstractionPerspective} lifecycle relations.`;
+        }
+        select.innerHTML = ABSTRACTION_PERSPECTIVES.map((perspective) => `
+            <option value="${perspective}" ${perspective === abstractionPerspective ? "selected" : ""}>
+                ${perspective} lifecycle aggregation
+            </option>
+        `).join("");
+        select.disabled = false;
+        return;
+    }
+
+    if (label) label.textContent = "Instance-level perspective";
+    if (description) {
+        description.textContent = "Anchor stays fixed; Local shows the selected lifecycle.";
+    }
+    if (!currentMultiEntityController) {
+        select.innerHTML = "";
+        select.disabled = true;
+        return;
+    }
+
+    const options = getPerspectiveEntityOptions();
+    const activeEntityKey = currentMultiEntityController.state.perspective?.entityKey ?? "";
+    select.innerHTML = options.map((option) => `
+        <option value="${option.entityKey}" ${option.entityKey === activeEntityKey ? "selected" : ""}>
+            ${formatPerspectiveOption(option)}
+        </option>
+    `).join("");
+    select.disabled = options.length <= 1;
+}
+
+
 function getSelectedInstanceSummary() {
     const selectedInstance = availableMultiEntityInstances.find(
         (instance) => instance.id === selectedMultiEntityInstanceId
@@ -200,7 +1055,26 @@ function getSelectedInstanceSummary() {
 
 function renderCurrentInstanceNavigator() {
     const summary = document.getElementById("current-instance-summary");
-    if (summary) summary.textContent = describeInstance(getSelectedInstanceSummary());
+    if (!summary) return;
+    if (currentAnalysisMode === "abstraction") {
+        summary.textContent = `${abstractionPerspective} abstraction · select ${getEntityTypePluralLabel()} to compare or aggregate.`;
+        return;
+    }
+    summary.textContent = describeInstance(getSelectedInstanceSummary());
+}
+
+
+function updateAggregateSelectionFromCheckbox(checkbox) {
+    const instanceId = checkbox?.dataset?.instanceId;
+    if (!instanceId || checkbox.disabled) return;
+    if (checkbox.checked) {
+        selectedAggregateInstanceIds.add(instanceId);
+    } else {
+        selectedAggregateInstanceIds.delete(instanceId);
+    }
+    currentSelectedInstanceOverlay = null;
+    currentAggregateDraft = null;
+    renderAggregateSelectionControls();
 }
 
 
@@ -208,17 +1082,52 @@ function renderInstanceBrowser() {
     renderCurrentInstanceNavigator();
 
     const table = document.getElementById("instance-browser-table");
+    const browserTitle = document.getElementById("instance-browser-title");
+    const browserDescription = document.getElementById("instance-browser-description");
     const status = document.getElementById("instance-browser-status");
     const pageStatus = document.getElementById("instance-page-status");
+    const aggregateControls = document.getElementById("instance-aggregate-controls");
     const sortSelect = document.getElementById("instance-sort-select");
     const orderSelect = document.getElementById("instance-order-select");
     const applicationSearchInput = document.getElementById("instance-application-search");
+    const idFilterLabel = document.getElementById("instance-id-filter-label");
     const minEventsInput = document.getElementById("instance-min-events");
     const minOffersInput = document.getElementById("instance-min-offers");
+    const relatedCountFilterLabel = document.getElementById("instance-related-count-filter-label");
     const onlyCancelledInput = document.getElementById("instance-only-cancelled");
+    const isAbstractionMode = currentAnalysisMode === "abstraction";
+    const browserEntityType = getBrowserEntityType();
+    const relatedCountLabel = getRelatedCountLabel(browserEntityType);
 
-    if (sortSelect) sortSelect.value = instanceOverviewState.sort;
+    if (browserTitle) {
+        browserTitle.textContent = isAbstractionMode
+            ? `${browserEntityType} Instance Overview`
+            : "Application Instance Overview";
+    }
+    if (browserDescription) {
+        browserDescription.textContent = isAbstractionMode
+            ? `Browse ${getEntityTypePluralLabel(browserEntityType)} for ${browserEntityType} abstraction and grouping.`
+            : "Browse application-centered process instances before loading one into the Time-Order Map.";
+    }
+
+    if (aggregateControls) {
+        aggregateControls.style.display = isAbstractionMode ? "" : "none";
+    }
+    if (isAbstractionMode) {
+        renderAggregateSelectionControls();
+    }
+
+    if (sortSelect) {
+        const relatedCountOption = sortSelect.querySelector('option[value="offer_count"]');
+        if (relatedCountOption) relatedCountOption.textContent = `${relatedCountLabel} count`;
+        sortSelect.value = instanceOverviewState.sort;
+    }
     if (orderSelect) orderSelect.value = instanceOverviewState.order;
+    if (idFilterLabel) idFilterLabel.textContent = `${browserEntityType} ID contains`;
+    if (applicationSearchInput) {
+        applicationSearchInput.placeholder = browserEntityType === "Application" ? "Application_..." : `${browserEntityType}_...`;
+    }
+    if (relatedCountFilterLabel) relatedCountFilterLabel.textContent = `Min ${relatedCountLabel.toLowerCase()}`;
     if (applicationSearchInput) applicationSearchInput.value = instanceOverviewState.applicationSearch;
     if (minEventsInput) minEventsInput.value = instanceOverviewState.minEvents;
     if (minOffersInput) minOffersInput.value = instanceOverviewState.minOffers;
@@ -230,60 +1139,146 @@ function renderInstanceBrowser() {
             : ((instanceOverviewState.page - 1) * instanceOverviewState.pageSize) + 1;
         const end = Math.min(instanceOverviewState.page * instanceOverviewState.pageSize, instanceOverviewState.total);
         const warning = instanceOverviewState.warning ? ` · fallback: ${instanceOverviewState.warning}` : "";
+        //去掉null，false，和undefined
         const activeFilters = [
             instanceOverviewState.applicationSearch ? `ID contains "${instanceOverviewState.applicationSearch}"` : null,
             instanceOverviewState.minEvents ? `min events ${instanceOverviewState.minEvents}` : null,
-            instanceOverviewState.minOffers ? `min offers ${instanceOverviewState.minOffers}` : null,
+            instanceOverviewState.minOffers ? `min ${relatedCountLabel.toLowerCase()} ${instanceOverviewState.minOffers}` : null,
             instanceOverviewState.onlyCancelled ? "only cancelled" : null,
         ].filter(Boolean);
         const filterText = activeFilters.length > 0 ? ` · filters: ${activeFilters.join(", ")}` : "";
-        status.textContent = `Showing ${start}-${end} of ${instanceOverviewState.total} instances${filterText}${warning}`;
+        status.textContent = `Showing ${start}-${end} of ${instanceOverviewState.total} ${getEntityTypePluralLabel(browserEntityType)}${filterText}${warning}`;
     }
     if (pageStatus) {
+        //end = Math.min(20, 17) // 17
         const totalPages = Math.max(Math.ceil(instanceOverviewState.total / instanceOverviewState.pageSize), 1);
         pageStatus.textContent = `Page ${instanceOverviewState.page} / ${totalPages}`;
     }
 
     if (!table) return;
     if (availableMultiEntityInstances.length === 0) {
-        table.innerHTML = '<div class="multi-entity-muted">No instances available.</div>';
+        table.innerHTML = `<div class="multi-entity-muted">No ${getEntityTypePluralLabel(browserEntityType)} available.</div>`;
         return;
     }
+
+    const selectablePageInstances = availableMultiEntityInstances.filter((instance) => (
+        !getAggregateGroupForInstance(instance.id)
+    ));
+    const selectedPageCount = selectablePageInstances.filter((instance) => (
+        selectedAggregateInstanceIds.has(instance.id)
+    )).length;
+    const isCurrentPageFullySelected = selectablePageInstances.length > 0
+        && selectedPageCount === selectablePageInstances.length;
+    const isCurrentPagePartlySelected = selectedPageCount > 0
+        && selectedPageCount < selectablePageInstances.length;
 
     table.innerHTML = `
         <table>
             <thead>
                 <tr>
-                    <th>Instance</th>
+                    ${isAbstractionMode ? `
+                        <th>
+                            <label class="instance-page-select">
+                                <input
+                                    type="checkbox"
+                                    id="instance-page-select-checkbox"
+                                    ${isCurrentPageFullySelected ? "checked" : ""}
+                                    ${selectablePageInstances.length === 0 ? "disabled" : ""}
+                                    aria-label="Select all instances on this page"
+                                >
+                                <span>Select</span>
+                            </label>
+                        </th>
+                    ` : ""}
+                    <th>${getEntityTypeLabel(browserEntityType)}</th>
                     <th>Events</th>
                     <th>DF edges</th>
-                    <th>Offers</th>
+                    <th>${relatedCountLabel}</th>
                     <th>Duration</th>
                     <th>Cancelled</th>
                 </tr>
             </thead>
             <tbody>
-                ${availableMultiEntityInstances.map((instance) => `
-                    <tr class="instance-browser-row ${instance.id === selectedMultiEntityInstanceId ? "active" : ""}"
+                ${availableMultiEntityInstances.map((instance) => {
+                    const containingGroup = isAbstractionMode ? getAggregateGroupForInstance(instance.id) : null;
+                    const isInAnyGroup = Boolean(containingGroup);
+                    const isSelected = selectedAggregateInstanceIds.has(instance.id);
+                    const isCurrentSingleInstance = !isAbstractionMode && instance.id === selectedMultiEntityInstanceId;
+                    return `
+                    <tr class="instance-browser-row ${isCurrentSingleInstance ? "active" : ""} ${isInAnyGroup ? "in-active-aggregate-group" : ""}"
                         data-instance-id="${instance.id}">
-                        <td>${instance.id}</td>
+                        ${isAbstractionMode ? `
+                        <td>
+                            <input
+                                type="checkbox"
+                                class="instance-aggregate-checkbox"
+                                data-instance-id="${instance.id}"
+                                ${isSelected || isInAnyGroup ? "checked" : ""}
+                                ${isInAnyGroup ? "disabled" : ""}
+                                aria-label="${isInAnyGroup ? `${instance.id} is already in ${containingGroup.name}` : `Select ${instance.id} for aggregation`}"
+                            >
+                        </td>
+                        ` : ""}
+                        <td>
+                            <span>${getInstanceDisplayLabel(instance, browserEntityType)}</span>
+                            ${isAbstractionMode ? `<span class="instance-entity-type-badge">${instance.entityType ?? browserEntityType}</span>` : ""}
+                            ${isAbstractionMode && isInAnyGroup ? `<span class="instance-active-group-badge">In ${containingGroup.name}</span>` : ""}
+                        </td>
                         <td>${formatCount(instance.eventCount)}</td>
                         <td>${formatCount(instance.dfEdgeCount)}</td>
-                        <td>${formatCount(instance.offerCount)}</td>
+                        <td>${formatCount(instance.entityType === "Application" ? instance.offerCount : (instance.relatedCaseCount ?? instance.offerCount))}</td>
                         <td>${formatDuration(instance.durationDays)}</td>
                         <td>${instance.hasCancellation ? "yes" : "no"}</td>
                     </tr>
-                `).join("")}
+                `}).join("")}
             </tbody>
         </table>
     `;
+
+    const pageSelectCheckbox = table.querySelector("#instance-page-select-checkbox");
+    if (pageSelectCheckbox) {
+        pageSelectCheckbox.indeterminate = isCurrentPagePartlySelected;
+        pageSelectCheckbox.addEventListener("click", (event) => {
+            event.stopPropagation();
+        });
+        pageSelectCheckbox.addEventListener("change", (event) => {
+            const shouldSelect = event.target.checked;
+            selectablePageInstances.forEach((instance) => {
+                if (shouldSelect) {
+                    selectedAggregateInstanceIds.add(instance.id);
+                } else {
+                    selectedAggregateInstanceIds.delete(instance.id);
+                }
+            });
+            currentSelectedInstanceOverlay = null;
+            currentAggregateDraft = null;
+            renderAggregateSelectionControls();
+            renderInstanceBrowser();
+        });
+    }
 
     table.querySelectorAll(".instance-browser-row").forEach((row) => {
         row.addEventListener("click", async () => {
             const instanceId = row.dataset.instanceId;
             if (!instanceId) return;
+            if (currentAnalysisMode === "abstraction") {
+                const checkbox = row.querySelector(".instance-aggregate-checkbox");
+                if (!checkbox || checkbox.disabled) return;
+                checkbox.checked = !checkbox.checked;
+                updateAggregateSelectionFromCheckbox(checkbox);
+                return;
+            }
             await switchMultiEntityInstance(instanceId);
             setInstanceBrowserOpen(false);
+        });
+    });
+
+    table.querySelectorAll(".instance-aggregate-checkbox").forEach((checkbox) => {
+        checkbox.addEventListener("click", (event) => {
+            event.stopPropagation();
+        });
+        checkbox.addEventListener("change", (event) => {
+            updateAggregateSelectionFromCheckbox(event.target);
         });
     });
 }
@@ -318,7 +1313,10 @@ function updateMultiEntityDetailsPanel() {
 
     const { state } = currentMultiEntityController;
     const filterDescription = describeGraphFilters(currentMultiEntityController.getGraphFilters?.());
-    status.textContent = `Scope: ${state.mode}${filterDescription ? ` · filters: ${filterDescription}` : ""}`;
+    const perspectiveDescription = state.perspective
+        ? ` · perspective: ${state.perspective.perspective}`
+        : "";
+    status.textContent = `Scope: ${state.mode}${perspectiveDescription}${filterDescription ? ` · filters: ${filterDescription}` : ""}`;
     updateEntityExpansionList();
 
     const event = currentMultiEntityController.getEventDetails(
@@ -354,11 +1352,25 @@ function updateMultiEntityDetailsPanel() {
         );
         const isDirectlyExpanded = currentMultiEntityController.state.expandedEntityKeys.has(membership.entityKey);
         const isEffectivelyExpanded = currentMultiEntityController.isEntityEffectivelyExpanded(membership.entityKey);
-        const canExpand = !isAnchorApplication && Boolean(entry?.canExpand) && isAnchorExpansionPoint;
-        const buttonLabel = !canExpand && isRelationMembership && entry?.canExpand
-            ? "Info only"
-            : (isDirectlyExpanded ? "Collapse" : (isEffectivelyExpanded ? "Shown" : "Expand"));
-        const buttonDisabled = canExpand && (isDirectlyExpanded || !isEffectivelyExpanded) ? "" : "disabled";
+        const isCurrentPerspectiveEntity = (
+            membership.entityKey === currentMultiEntityController.state.perspective?.entityKey
+        );
+        const canToggleExpansion = (
+            isRelationMembership &&
+            !isAnchorApplication &&
+            Boolean(entry?.canExpand) &&
+            (isAnchorExpansionPoint || isDirectlyExpanded)
+        );
+        const buttonLabel = !isRelationMembership
+            ? (isCurrentPerspectiveEntity ? "Current" : "Membership")
+            : isDirectlyExpanded
+            ? "Collapse"
+            : (!canToggleExpansion && isRelationMembership && entry?.canExpand
+                ? "Info only"
+                : (isEffectivelyExpanded ? "Shown" : "Expand"));
+        const buttonDisabled = canToggleExpansion && (isDirectlyExpanded || !isEffectivelyExpanded)
+            ? ""
+            : "disabled";
 
         return `
             <div class="membership-row">
@@ -460,7 +1472,13 @@ function bindMultiEntityChartInteractions() {
 
 
 function renderCurrentGraph() {
+    hideAggregateEdgePopup();
     graphViewSwitcher(currentGraphViewSelection, currentRenderedData);
+    if (["aggregate-group", "aggregate-comparison", "aggregate-group-comparison"].includes(currentRenderedData?.meta?.mode)) {
+        const groupInstanceCount = currentRenderedData?.meta?.aggregateGroupInstanceCount
+            ?? getActiveAggregateGroup()?.instanceIds.length;
+        bindAggregateEdgePopupInteractions(currentRenderedData.graphData, groupInstanceCount);
+    }
     if (currentMultiEntityController) {
         try {
             bindMultiEntityChartInteractions();
@@ -485,7 +1503,9 @@ function renderMultiEntityGraph() {
 
 
 async function loadAvailableMultiEntityInstances() {
+    const entityType = getBrowserEntityType();
     const query = new URLSearchParams({
+        entity_type: entityType,
         page: String(instanceOverviewState.page),
         page_size: String(instanceOverviewState.pageSize),
         sort: instanceOverviewState.sort,
@@ -500,7 +1520,17 @@ async function loadAvailableMultiEntityInstances() {
         throw new Error("Multi-entity instance list is not available.");
     }
     const payload = await response.json();
-    availableMultiEntityInstances = payload.instances ?? payload;
+    const payloadEntityType = payload.entityType ?? entityType;
+    if (currentAnalysisMode === "abstraction") {
+        knownMultiEntityInstancesById = new Map();
+    }
+    availableMultiEntityInstances = (payload.instances ?? payload).map((instance) => ({
+        ...instance,
+        entityType: instance.entityType ?? payloadEntityType,
+    }));
+    availableMultiEntityInstances.forEach((instance) => {
+        knownMultiEntityInstancesById.set(instance.id, instance);
+    });
     instanceOverviewState = {
         ...instanceOverviewState,
         page: payload.page ?? instanceOverviewState.page,
@@ -522,11 +1552,163 @@ async function loadAvailableMultiEntityInstances() {
 }
 
 
+function showAggregateGroup(group) {
+    abstractionPerspective = group.perspective ?? abstractionPerspective;
+    if (!group.aggregatePayload) {
+        group.aggregatePayload = buildAggregateGroupPayload(group);
+    }
+    resetPersistedXZoom();
+    setAnalysisMode("abstraction");
+    activeAggregateGroupId = group.id;
+    currentMultiEntityController = null;
+    currentRenderedData = group.aggregatePayload;
+    setMultiEntityPanelVisibility(true);
+    renderMultiEntityLegend();
+    renderCurrentGraph();
+    renderAggregateGroupDetails(group);
+    renderAggregateSelectionControls();
+    renderInstanceBrowser();
+}
+
+
+function showAggregateGroupComparison(groupA, groupB) {
+    if (!groupA || !groupB || groupA.id === groupB.id) return;
+
+    resetPersistedXZoom();
+    setAnalysisMode("abstraction");
+    currentMultiEntityController = null;
+    currentSelectedInstanceOverlay = null;
+    currentAggregateDraft = null;
+    currentRenderedData = buildAggregateGroupComparisonPayload(groupA, groupB);
+    setMultiEntityPanelVisibility(true);
+    renderMultiEntityLegend();
+    renderCurrentGraph();
+    renderAggregateGroupComparisonDetails(groupA, groupB);
+    renderAggregateSelectionControls();
+    renderInstanceBrowser();
+}
+
+
+async function aggregateSelectedInstances() {
+    if (currentAnalysisMode !== "abstraction") return;
+    const groupNumber = getNextAggregateGroupNumber();
+    if (groupNumber == null) {
+        renderAggregateSelectionControls();
+        return;
+    }
+    const selectedInstances = getSelectedAggregateInstances().filter((instance) => (
+        !getAggregateGroupForInstance(instance.id)
+    ));
+    if (selectedInstances.length < 2) return;
+
+    const selectedInstanceIds = selectedInstances.map((instance) => instance.id);
+    let overlay = currentSelectedInstanceOverlay;
+    if (
+        !overlay
+        || !haveSameInstanceIds(overlay.instanceIds ?? [], selectedInstanceIds)
+        || !Array.isArray(overlay.instancePayloads)
+    ) {
+        const instancePayloads = await Promise.all(selectedInstances.map(loadLocalInstancePayload));
+        overlay = buildSelectedInstanceOverlay(selectedInstances);
+        overlay.instancePayloads = instancePayloads;
+    }
+
+    const group = createAggregateGroupFromOverlay(
+        overlay,
+        groupNumber,
+        abstractionPerspective
+    );
+    aggregateGroups.push(group);
+    activeAggregateGroupId = group.id;
+    currentAggregateDraft = group.summary;
+    currentSelectedInstanceOverlay = null;
+    selectedAggregateInstanceIds.clear();
+    showAggregateGroup(group);
+    renderAggregateSelectionControls();
+}
+
+
+async function addSelectedInstancesToActiveGroup() {
+    if (currentAnalysisMode !== "abstraction") return;
+    const activeGroup = getActiveAggregateGroup();
+    const candidates = getSelectedInstancesOutsideActiveGroup();
+    if (!activeGroup || candidates.length === 0) return;
+    if ((activeGroup.perspective ?? "Application") !== abstractionPerspective) return;
+
+    const candidatePayloads = await Promise.all(candidates.map(loadLocalInstancePayload));
+    candidates.forEach((instance) => {
+        selectedAggregateInstanceIds.delete(instance.id);
+    });
+    activeGroup.instanceIds.push(...candidates.map((instance) => instance.id));
+    activeGroup.instancePayloads.push(...candidatePayloads);
+    activeGroup.summary = summarizeAggregateInstances(
+        activeGroup.instanceIds.map(getKnownInstance)
+    );
+    activeGroup.aggregatePayload = buildAggregateGroupPayload(activeGroup);
+    currentAggregateDraft = activeGroup.summary;
+    currentSelectedInstanceOverlay = null;
+    showAggregateGroup(activeGroup);
+    renderAggregateSelectionControls();
+}
+
+
+async function showSelectedInstances() {
+    if (currentAnalysisMode !== "abstraction") return;
+    const selectedInstances = getSelectedAggregateInstances();
+    if (selectedInstances.length === 0) return;
+
+    const activeGroup = getActiveAggregateGroup();
+    const candidateInstances = activeGroup
+        ? getSelectedInstancesOutsideActiveGroup()
+        : selectedInstances;
+    if (candidateInstances.length === 0) {
+        if (activeGroup) showAggregateGroup(activeGroup);
+        return;
+    }
+
+    const instancePayloads = await Promise.all(candidateInstances.map(loadLocalInstancePayload));
+
+    if (!activeGroup) {
+        resetPersistedXZoom();
+    }
+    const overlay = buildSelectedInstanceOverlay(candidateInstances);
+    overlay.payload = activeGroup
+        ? buildAggregateComparisonPayload(activeGroup, instancePayloads)
+        : buildSelectedInstanceOverlayPayload(instancePayloads, overlay);
+    overlay.instancePayloads = instancePayloads;
+
+    currentSelectedInstanceOverlay = overlay;
+    currentAggregateDraft = null;
+    currentMultiEntityController = null;
+    currentRenderedData = overlay.payload;
+    setAnalysisMode("abstraction");
+    setMultiEntityPanelVisibility(true);
+    renderMultiEntityLegend();
+    renderCurrentGraph();
+    if (activeGroup) {
+        renderAggregateComparisonDetails(activeGroup, candidateInstances);
+    } else {
+        renderSelectedInstanceOverlayDetails(overlay);
+    }
+    renderAggregateSelectionControls();
+}
+
+
+function clearAggregateSelection() {
+    if (currentAnalysisMode !== "abstraction") return;
+    selectedAggregateInstanceIds.clear();
+    currentSelectedInstanceOverlay = null;
+    currentAggregateDraft = null;
+    renderInstanceBrowser();
+}
+
+
 async function loadMultiEntityPrototype(instanceId = selectedMultiEntityInstanceId) {
     const encodedInstanceId = encodeURIComponent(instanceId);
     let localResponse;
     let expandedResponse;
 
+    //先请求 Neo4j live API
     try {
         [localResponse, expandedResponse] = await Promise.all([
             fetch(`/api/multi_entity_live/${encodedInstanceId}/local`),
@@ -536,6 +1718,7 @@ async function loadMultiEntityPrototype(instanceId = selectedMultiEntityInstance
         console.warn("Live Neo4j instance loading failed, trying exported samples:", err);
     }
 
+    //如果失败，再请求 sample JSON：
     if (!localResponse?.ok || !expandedResponse?.ok) {
         [localResponse, expandedResponse] = await Promise.all([
             fetch(`/api/multi_entity_sample/${encodedInstanceId}/local`),
@@ -556,13 +1739,55 @@ async function loadMultiEntityPrototype(instanceId = selectedMultiEntityInstance
 }
 
 
+async function loadEntityLifecyclePrototype(entityType, entityId) {
+    if (entityType === "Application") {
+        return loadMultiEntityPrototype(entityId);
+    }
+
+    const encodedEntityType = encodeURIComponent(entityType);
+    const encodedEntityId = encodeURIComponent(entityId);
+    const [localResponse, expandedResponse] = await Promise.all([
+        fetch(`/api/multi_entity_entity_live/${encodedEntityType}/local/${encodedEntityId}`),
+        fetch(`/api/multi_entity_entity_live/${encodedEntityType}/expanded/${encodedEntityId}`),
+    ]);
+
+    if (!localResponse.ok || !expandedResponse.ok) {
+        throw new Error(`${entityType} lifecycle data is not available for ${entityId}.`);
+    }
+
+    const [localSample, expandedSample] = await Promise.all([
+        localResponse.json(),
+        expandedResponse.json(),
+    ]);
+
+    return createMultiEntityState(localSample, expandedSample);
+}
+
+
+async function loadLocalInstancePayload(instance) {
+    const entityType = instance.entityType ?? getBrowserEntityType();
+    const controller = await loadEntityLifecyclePrototype(entityType, instance.id);
+    controller.setMode("local");
+    const payload = controller.getVisibleGraphPayload();
+    controller.setMode("expanded");
+    const expandedPayload = controller.getVisibleGraphPayload();
+    return {
+        instance,
+        payload,
+        expandedPayload,
+    };
+}
+
+
 async function switchMultiEntityInstance(instanceId) {
     selectedMultiEntityInstanceId = instanceId;
+    setAnalysisMode("instance");
     d3.select("#chart").selectAll("*").remove();
     currentMultiEntityController = await loadMultiEntityPrototype(selectedMultiEntityInstanceId);
     currentRenderedData = currentMultiEntityController.getVisibleGraphPayload();
     renderCurrentInstanceNavigator();
     renderMultiEntityLegend();
+    updatePerspectiveControlFromState();
     updateGraphFilterControlsFromState();
     renderCurrentGraph();
     updateMultiEntityDetailsPanel();
@@ -583,31 +1808,32 @@ async function draw(inputData = null) {
 
     try {
         await loadAvailableMultiEntityInstances();
-        renderCurrentInstanceNavigator();
-        currentMultiEntityController = await loadMultiEntityPrototype(selectedMultiEntityInstanceId);
-        currentRenderedData = currentMultiEntityController.getVisibleGraphPayload();
-        setMultiEntityPanelVisibility(true);
-        renderMultiEntityLegend();
-        updateGraphFilterControlsFromState();
-        try {
-            renderCurrentGraph();
-        } catch (err) {
-            console.error("Multi-entity rendering failed:", err);
-            showMultiEntityError(String(err?.message ?? err));
-            return;
-        }
-        return;
     } catch (err) {
         console.warn("Falling back to default CSV data:", err);
+        try {
+            currentRenderedData = await d3.json('/api/get_data');
+            currentMultiEntityController = null;
+            setMultiEntityPanelVisibility(false);
+            renderCurrentGraph();
+        } catch (fallbackErr) {
+            console.error("Failed to load default data:", fallbackErr);
+        }
+        return;
     }
 
     try {
-        currentRenderedData = await d3.json('/api/get_data');
-        currentMultiEntityController = null;
-        setMultiEntityPanelVisibility(false);
+        renderCurrentInstanceNavigator();
+        currentMultiEntityController = await loadMultiEntityPrototype(selectedMultiEntityInstanceId);
+        currentRenderedData = currentMultiEntityController.getVisibleGraphPayload();
+        setAnalysisMode("instance");
+        setMultiEntityPanelVisibility(true);
+        renderMultiEntityLegend();
+        updatePerspectiveControlFromState();
+        updateGraphFilterControlsFromState();
         renderCurrentGraph();
     } catch (err) {
-        console.error("Failed to load default data:", err);
+        console.error("Multi-entity loading/rendering failed:", err);
+        showMultiEntityError(String(err?.message ?? err));
     }
 }
 
@@ -682,10 +1908,52 @@ function clearGraphFilters() {
 }
 
 
+async function applyPerspectiveSelection() {
+    const select = document.getElementById("multi-entity-perspective-select");
+    if (currentAnalysisMode === "abstraction") {
+        await setAbstractionPerspective(select?.value);
+        return;
+    }
+
+    if (!currentMultiEntityController) return;
+
+    const selectedEntityKey = select?.value;
+    const selectedOption = getPerspectiveEntityOptions().find((option) => (
+        option.entityKey === selectedEntityKey
+    ));
+    if (!selectedOption) return;
+
+    resetPersistedXZoom();
+    currentMultiEntityController.resetGraphFilters();
+    currentMultiEntityController.setPerspectiveEntity(selectedOption);
+    updatePerspectiveControlFromState();
+    updateGraphFilterControlsFromState();
+    renderMultiEntityGraph();
+}
+
+
 function setupUiHandlers() {
     d3.selectAll('input[name="option-switcher-graph-view"]').on("change", function () {
         currentGraphViewSelection = +this.value;
         renderCurrentGraph();
+    });
+
+    document.getElementById("button-mode-instance")?.addEventListener("click", async () => {
+        try {
+            await enterInstanceMode();
+        } catch (err) {
+            console.error("Failed to enter instance mode:", err);
+            showMultiEntityError(String(err?.message ?? err));
+        }
+    });
+
+    document.getElementById("button-mode-abstraction")?.addEventListener("click", async () => {
+        try {
+            await enterAbstractionMode();
+        } catch (err) {
+            console.error("Failed to enter abstraction mode:", err);
+            showMultiEntityError(String(err?.message ?? err));
+        }
     });
 
     document.getElementById("button-scope-local")?.addEventListener("click", () => {
@@ -704,6 +1972,15 @@ function setupUiHandlers() {
         if (!currentMultiEntityController) return;
         currentMultiEntityController.resetSelections();
         renderMultiEntityGraph();
+    });
+
+    document.getElementById("multi-entity-perspective-select")?.addEventListener("change", async () => {
+        try {
+            await applyPerspectiveSelection();
+        } catch (err) {
+            console.error("Failed to apply perspective selection:", err);
+            showMultiEntityError(String(err?.message ?? err));
+        }
     });
 
     document.getElementById("button-browse-instances")?.addEventListener("click", async () => {
@@ -773,6 +2050,37 @@ function setupUiHandlers() {
 
     document.getElementById("button-clear-instance-filters")?.addEventListener("click", async () => {
         await clearInstanceFilters();
+    });
+
+    document.getElementById("button-show-selected-instances")?.addEventListener("click", async () => {
+        try {
+            await showSelectedInstances();
+        } catch (err) {
+            console.error("Failed to show selected instance overlay:", err);
+            showMultiEntityError(String(err?.message ?? err));
+        }
+    });
+
+    document.getElementById("button-aggregate-selected-instances")?.addEventListener("click", async () => {
+        try {
+            await aggregateSelectedInstances();
+        } catch (err) {
+            console.error("Failed to aggregate selected instances:", err);
+            showMultiEntityError(String(err?.message ?? err));
+        }
+    });
+
+    document.getElementById("button-add-selected-to-active-group")?.addEventListener("click", async () => {
+        try {
+            await addSelectedInstancesToActiveGroup();
+        } catch (err) {
+            console.error("Failed to add selected instances to active aggregate group:", err);
+            showMultiEntityError(String(err?.message ?? err));
+        }
+    });
+
+    document.getElementById("button-clear-aggregate-selection")?.addEventListener("click", () => {
+        clearAggregateSelection();
     });
 
     document.getElementById("button-apply-graph-filters")?.addEventListener("click", () => {

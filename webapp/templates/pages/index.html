@@ -46,6 +46,14 @@
                 <option value="seconds">seconds</option>
             </select>
             <button type="button" id="button-reset-x-zoom">Reset Zoom</button>
+            <div class="analysis-mode-switcher" aria-label="Analysis mode switcher">
+                <button type="button" id="button-mode-instance" class="analysis-mode-button mode-instance active">
+                    Instance mode
+                </button>
+                <button type="button" id="button-mode-abstraction" class="analysis-mode-button mode-abstraction">
+                    Abstraction mode
+                </button>
+            </div>
             <div id="instance-navigator" class="instance-navigator">
                 <button type="button" id="button-previous-instance">Previous</button>
                 <button type="button" id="button-browse-instances">Browse Instances</button>
@@ -57,8 +65,8 @@
             <div class="instance-browser-card">
                 <div class="instance-browser-header">
                     <div>
-                        <h3>Instance Overview</h3>
-                        <p>Browse application-centered process instances before loading one into the Time-Order Map.</p>
+                        <h3 id="instance-browser-title">Instance Overview</h3>
+                        <p id="instance-browser-description">Browse application-centered process instances before loading one into the Time-Order Map.</p>
                     </div>
                     <button type="button" id="button-close-instance-browser">Close</button>
                 </div>
@@ -77,7 +85,7 @@
                 </div>
                 <div class="instance-browser-filters">
                     <label>
-                        Application ID contains
+                        <span id="instance-id-filter-label">Application ID contains</span>
                         <input type="text" id="instance-application-search" placeholder="Application_...">
                     </label>
                     <label>
@@ -85,7 +93,7 @@
                         <input type="number" id="instance-min-events" min="0" step="1" placeholder="0">
                     </label>
                     <label>
-                        Min offers
+                        <span id="instance-related-count-filter-label">Min offers</span>
                         <input type="number" id="instance-min-offers" min="0" step="1" placeholder="0">
                     </label>
                     <label class="instance-filter-checkbox">
@@ -96,6 +104,18 @@
                     <button type="button" id="button-clear-instance-filters">Clear</button>
                 </div>
                 <div id="instance-browser-status" class="instance-browser-status"></div>
+                <div id="instance-aggregate-controls" class="instance-aggregate-controls">
+                    <div>
+                        <strong>Aggregation selection</strong>
+                        <div id="instance-aggregate-status">Select at least two instances to create an aggregate group.</div>
+                    </div>
+                    <div class="instance-aggregate-actions">
+                        <button type="button" id="button-show-selected-instances">Show selected instances</button>
+                        <button type="button" id="button-aggregate-selected-instances">Aggregate selected</button>
+                        <button type="button" id="button-add-selected-to-active-group">Add selected to active group</button>
+                        <button type="button" id="button-clear-aggregate-selection">Clear selection</button>
+                    </div>
+                </div>
                 <div id="instance-browser-table" class="instance-browser-table"></div>
                 <div class="instance-browser-pagination">
                     <button type="button" id="button-instance-page-prev">Previous page</button>
@@ -137,16 +157,26 @@
         <div id="parameters-graph">
             <div id="multi-entity-panel" class="param-group" style="display:none;">
                 <h3>Multi-Entity Prototype</h3>
-                <div class="multi-entity-controls">
-                    <button type="button" id="button-scope-local">Show Local</button>
-                    <button type="button" id="button-show-all-perspectives">Show All Perspectives</button>
-                    <button type="button" id="button-reset-expanded-entities">Reset Expansions</button>
+                <div class="multi-entity-perspective-panel">
+                    <label for="multi-entity-perspective-select" id="multi-entity-perspective-label">Perspective</label>
+                    <select id="multi-entity-perspective-select"></select>
+                    <p class="multi-entity-muted" id="multi-entity-perspective-description">
+                        Anchor stays fixed; Local shows the selected lifecycle.
+                    </p>
+                </div>
+                <div id="multi-entity-scope-controls" class="multi-entity-scope-controls">
+                    <div class="scope-controls-label">Instance scope</div>
+                    <button type="button" id="button-scope-local" class="scope-action scope-action-primary">Show Local</button>
+                    <div class="scope-action-row">
+                        <button type="button" id="button-show-all-perspectives" class="scope-action">Show All</button>
+                        <button type="button" id="button-reset-expanded-entities" class="scope-action scope-action-muted">Reset</button>
+                    </div>
                 </div>
                 <div id="multi-entity-status" class="multi-entity-status"></div>
                 <div class="detail-section-title">Graph filters</div>
                 <div class="multi-entity-graph-filters">
                     <label>
-                        Activity type
+                        Activity type filter
                         <select id="graph-filter-activity-prefix">
                             <option value="">All activity types</option>
                             <option value="A_">Application activities (A_)</option>
@@ -169,8 +199,8 @@
                         </label>
                     </div>
                     <div class="graph-filter-actions">
-                        <button type="button" id="button-apply-graph-filters">Apply graph filters</button>
-                        <button type="button" id="button-clear-graph-filters">Clear</button>
+                        <button type="button" id="button-apply-graph-filters" class="graph-filter-action graph-filter-action-primary">Apply graph filters</button>
+                        <button type="button" id="button-clear-graph-filters" class="graph-filter-action graph-filter-action-muted">Clear</button>
                     </div>
                 </div>
                 <div class="detail-section-title">Event details</div>

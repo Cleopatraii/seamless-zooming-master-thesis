@@ -32,7 +32,9 @@ from src.utils.data_importing import load_event_log_from_tempfile
 from src.orchestrator import process_log_for_d3js
 from src.integrations.neo4j_queries import (
     build_anchor_application_sample_payload,
+    build_entity_instance_sample_payload,
     fetch_application_instance_summaries,
+    fetch_entity_instance_summaries,
 )
 
 # App directory
@@ -94,7 +96,8 @@ MULTI_ENTITY_INSTANCES = [
 
 @bp.route('/api/multi_entity_instances')
 def get_multi_entity_instances():
-    """Return one page of application-centered prototype instances."""
+    """Return one page of prototype instances for the selected abstraction entity type."""
+    entity_type = request.args.get("entity_type", "Application", type=str)
     page = request.args.get("page", 1, type=int)
     page_size = request.args.get("page_size", 20, type=int)
     sort = request.args.get("sort", "event_count", type=str)
@@ -105,16 +108,30 @@ def get_multi_entity_instances():
     only_cancelled = request.args.get("only_cancelled", "false", type=str).lower() == "true"
 
     try:
-        return jsonify(fetch_application_instance_summaries(
-            page=page,
-            page_size=page_size,
-            sort=sort,
-            order=order,
-            application_search=application_search,
-            min_events=min_events,
-            min_offers=min_offers,
-            only_cancelled=only_cancelled,
-        ))
+        if entity_type == "Application":
+            payload = fetch_application_instance_summaries(
+                page=page,
+                page_size=page_size,
+                sort=sort,
+                order=order,
+                application_search=application_search,
+                min_events=min_events,
+                min_offers=min_offers,
+                only_cancelled=only_cancelled,
+            )
+        else:
+            payload = fetch_entity_instance_summaries(
+                entity_type=entity_type,
+                page=page,
+                page_size=page_size,
+                sort=sort,
+                order=order,
+                application_search=application_search,
+                min_events=min_events,
+                min_offers=min_offers,
+                only_cancelled=only_cancelled,
+            )
+        return jsonify(payload)
     except Exception as exc:
         # Keep the demo usable when Neo4j is not running; the browser can still
         # navigate through the pre-exported examples.
@@ -124,14 +141,16 @@ def get_multi_entity_instances():
             "total": len(MULTI_ENTITY_INSTANCES),
             "sort": "event_count",
             "order": "asc",
+            "entityType": entity_type,
             "instances": [
                 {
                     "id": instance["id"],
                     "label": instance["label"],
+                    "entityType": "Application",
                     "description": instance["description"],
                 }
                 for instance in MULTI_ENTITY_INSTANCES
-            ],
+            ] if entity_type == "Application" else [],
             "warning": str(exc),
         })
 
@@ -163,6 +182,22 @@ def get_multi_entity_live_sample(application_id, mode):
             application_id,
             mode=mode,
             selected_perspectives=["Offer", "Workflow"],
+        )
+        return jsonify(json.loads(json.dumps(payload, default=str)))
+    except Exception as exc:
+        return jsonify({'error': str(exc)}), 500
+
+
+@bp.route('/api/multi_entity_entity_live/<entity_type>/<mode>/<path:entity_id>')
+def get_multi_entity_entity_live_sample(entity_type, mode, entity_id):
+    """Build one entity-centered lifecycle payload from Neo4j."""
+    if mode not in {"local", "expanded"}:
+        return jsonify({'error': f'Unknown mode: {mode}'}), 400
+    try:
+        payload = build_entity_instance_sample_payload(
+            entity_type=entity_type,
+            entity_id=entity_id,
+            mode=mode,
         )
         return jsonify(json.loads(json.dumps(payload, default=str)))
     except Exception as exc:

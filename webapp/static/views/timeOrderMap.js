@@ -31,7 +31,7 @@ import { drawAxis } from '../components/axes.mjs';
 import { CONTOURGRAPH } from '../charts/contourGraph.mjs';
 import { assignGraphByContours } from '../vizmodules/graphContoursMapping.mjs';
 import { multiLevelGraphBuilder } from '../vizmodules/multiLevelGraphBuilder.mjs';
-import { renderInstanceGraph } from '../charts/instanceGraph.mjs';
+import { makeAggregateArrowGlyph, renderInstanceGraph } from '../charts/instanceGraph.mjs';
 import { renderAbstractionLevelGraph } from '../charts/modelabstractionlevelGraph.mjs';
 import { defineArrowHeads } from '../components/arrowheads.mjs';
 import { defineLinkVertical, defineLinkBezier } from '../vizmodules/linkCalculator.mjs';
@@ -111,7 +111,18 @@ function TIMEORDERMAP(csvdata) {
         : getUniqueValues(nodes(data), actAccessor);
     const dayToDate = (day) => new Date(day * 24 * 60 * 60 * 1000);
     const dateToDay = (date) => date.getTime() / (24 * 60 * 60 * 1000);
-    const rawXDomainDays = d3.extent(nodes(data), timeAccessor);
+    const metaXDomainDays = Array.isArray(csvdata?.meta?.xDomainDays)
+        ? csvdata.meta.xDomainDays.map(Number)
+        : null;
+    const hasValidMetaXDomain = (
+        metaXDomainDays?.length === 2 &&
+        Number.isFinite(metaXDomainDays[0]) &&
+        Number.isFinite(metaXDomainDays[1]) &&
+        metaXDomainDays[1] >= metaXDomainDays[0]
+    );
+    const rawXDomainDays = hasValidMetaXDomain
+        ? metaXDomainDays
+        : d3.extent(nodes(data), timeAccessor);
     const graphFilters = csvdata?.meta?.graphFilters ?? {};
     const requestedXStartDays = parseOptionalDay(graphFilters.timeStartDays);
     const requestedXEndDays = parseOptionalDay(graphFilters.timeEndDays);
@@ -904,6 +915,12 @@ function TIMEORDERMAP(csvdata) {
 
         ctr.selectAll(".instance-edge")
             .attr("d", linkInstance);
+
+        ctr.selectAll(".aggregate-edge-hit-area")
+            .attr("d", linkInstance);
+
+        ctr.selectAll(".aggregate-edge-arrowhead")
+            .attr("d", d => makeAggregateArrowGlyph(d, linkInstance));
     }
 
     const xZoom = d3.zoom()

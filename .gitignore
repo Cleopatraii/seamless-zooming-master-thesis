@@ -16,6 +16,12 @@ seamvenv/
 # VS Code config (optional)
 .vscode/
 
+# Local AI-assistant instructions and skills
+.codex/
+.agents/
+AGENTS.md
+*.skill
+
 # System files
 .DS_Store
 Thumbs.db
@@ -35,4 +41,5 @@ testapp/
 # Optional: Compiled output or builds
 dist/
 build/
-*.egg-info/.idea/
+*.egg-info/
+.idea/

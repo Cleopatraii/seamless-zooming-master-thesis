@@ -3,68 +3,10 @@ SEAMLESS_ZOOM - A technique for seamless zooming between process models and proc
 */
 
 import { getEntityDisplayCategory, splitVisibleAndHiddenMemberships } from "./multiEntityConfig.mjs";
+import { buildActivityRanking } from "./multiEntityActivityRanking.mjs";
 
 const secondsToDays = (seconds) => seconds / 86400;
-const EXPANDABLE_ENTITY_TYPES = new Set(["Case_AO", "Case_AW", "Offer", "Workflow"]);
-
-// Build one shared activity order for the TOM y-axis.
-// This is a lightweight ranking: activities are ordered by their mean timestamp,
-// with start-like activities kept near the top and end-like activities near the bottom.
-function buildActivityRanking(eventMap, dfEdges) {
-    const allActivities = new Set();
-    const activityTimes = new Map();
-    const incomingActivities = new Set();
-    const outgoingActivities = new Set();
-
-    eventMap.forEach((event) => {
-        allActivities.add(event.activity);
-        const times = activityTimes.get(event.activity) ?? [];
-        times.push(event.timestamp_relative_seconds);
-        activityTimes.set(event.activity, times);
-    });
-
-    dfEdges.forEach((edge) => {
-        if (edge.source_activity) outgoingActivities.add(edge.source_activity);
-        if (edge.target_activity) incomingActivities.add(edge.target_activity);
-    });
-
-    const meanTimeByActivity = new Map();
-    activityTimes.forEach((times, activity) => {
-        const sum = times.reduce((total, value) => total + value, 0);
-        meanTimeByActivity.set(activity, sum / times.length);
-    });
-
-    const activitiesByMeanTime = Array.from(allActivities).sort((activityA, activityB) => {
-        const meanTimeA = meanTimeByActivity.get(activityA) ?? 0;
-        const meanTimeB = meanTimeByActivity.get(activityB) ?? 0;
-        const delta = meanTimeA - meanTimeB;
-        return delta !== 0 ? delta : activityA.localeCompare(activityB);
-    });
-
-    const startActivities = new Set(
-        activitiesByMeanTime.filter((activity) => !incomingActivities.has(activity))
-    );
-    const endActivities = new Set(
-        activitiesByMeanTime.filter(
-            (activity) => !outgoingActivities.has(activity) && !startActivities.has(activity)
-        )
-    );
-    const intermediateActivities = activitiesByMeanTime.filter(
-        (activity) => !startActivities.has(activity) && !endActivities.has(activity)
-    );
-
-    const rankedActivities = [
-        ...activitiesByMeanTime.filter((activity) => startActivities.has(activity)),
-        ...intermediateActivities,
-        ...activitiesByMeanTime.filter((activity) => endActivities.has(activity)),
-    ];
-
-    const ranking = new Map();
-    rankedActivities.forEach((activity, index) => {
-        ranking.set(activity, `${index + 1}_${activity}`);
-    });
-    return ranking;
-}
+const EXPANDABLE_ENTITY_TYPES = new Set(["Case_AO", "Case_AW", "Case_WO", "Offer", "Workflow"]);
 
 function getSampleContext(sample) {
     return {
@@ -375,4 +317,4 @@ function buildGraphPayload(graphData, meta = {}) {
     };
 }
 
-export { buildMultiEntityGraph, buildGraphPayload };
+export { buildMultiEntityGraph, buildGraphPayload, makeEntityKey };

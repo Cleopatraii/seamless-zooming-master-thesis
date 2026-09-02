@@ -26,6 +26,44 @@ E-Mail: {firstname.lastname}@hu-berlin.de
 import { caseAccessor, actAccessor, timeAccessor, resAccessor, nodes, edges } from "../utils/parsers.mjs";
 import { getEntityColor } from "../utils/multiEntityConfig.mjs";
 
+function getPointOnPath(pathElement, distance) {
+    const point = pathElement.getPointAtLength(distance);
+    return [point.x, point.y];
+}
+
+function makeAggregateArrowGlyph(edgeDatum, link) {
+    const pathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pathElement.setAttribute("d", link(edgeDatum));
+
+    let pathLength = 0;
+    try {
+        pathLength = pathElement.getTotalLength();
+    } catch {
+        return null;
+    }
+    if (!Number.isFinite(pathLength) || pathLength <= 1) return null;
+
+    const tipGap = Math.min(11, pathLength * 0.32);
+    const tailGap = Math.min(22, pathLength * 0.68);
+    const [tipX, tipY] = getPointOnPath(pathElement, Math.max(0, pathLength - tipGap));
+    const [tailX, tailY] = getPointOnPath(pathElement, Math.max(0, pathLength - tailGap));
+    const angle = Math.atan2(tipY - tailY, tipX - tailX);
+    if (!Number.isFinite(angle)) return null;
+
+    const arrowLength = 7;
+    const arrowHalfWidth = 4;
+    const baseX = tipX - Math.cos(angle) * arrowLength;
+    const baseY = tipY - Math.sin(angle) * arrowLength;
+    const normalX = -Math.sin(angle);
+    const normalY = Math.cos(angle);
+    const leftX = baseX + normalX * arrowHalfWidth;
+    const leftY = baseY + normalY * arrowHalfWidth;
+    const rightX = baseX - normalX * arrowHalfWidth;
+    const rightY = baseY - normalY * arrowHalfWidth;
+
+    return `M${tipX},${tipY} L${leftX},${leftY} L${rightX},${rightY} Z`;
+}
+
 function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAccessor, yScale, options = {}) {
     // Graph initialization
     const {
@@ -39,7 +77,6 @@ function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAcc
         opacityStroke = 0.6,
         strokeWidth = 1.0,
     } = options;
-
 
     const ctrInstance = container.append('g')
         .attr('class', classNameGraph)
@@ -56,6 +93,7 @@ function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAcc
         .data(edges(graphData))
         .join('path')
         .attr('id', d => `edge-${d.id}`)//edge-e0
+        .attr('data-edge-id', d => d.id)
         .attr('d', link)
         .attr('data-caseid', d => d.entity)          // Use the entity as the case ID. Each edge belongs to a specific case.
         .attr('data-perspective', d => d.perspective ?? d.entity)
@@ -68,11 +106,33 @@ function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAcc
             const relationClass = d.relationKind === "expansion-anchor"
                 ? " expansion-anchor-edge"
                 : "";
-            return base + " instance-edge" + relationClass;            // ★ Add an instance-edge uniformly
+            const aggregateClass = d.isAggregateEdge ? " aggregate-edge" : "";
+            return base + " instance-edge" + relationClass + aggregateClass;            // ★ Add an instance-edge uniformly
         })
         .style('stroke', d => d.edgeColor ?? getEntityColor(d.perspective ?? d.entity))
         .style('stroke-dasharray', d => d.edgeDasharray ?? null)
-        .style('stroke-opacity', d => d.edgeOpacity ?? null);
+        .style('stroke-opacity', d => d.edgeOpacity ?? null)
+        .style('stroke-width', d => d.edgeStrokeWidth ?? strokeWidth)
+        .style('stroke-linecap', d => d.isAggregateEdge ? 'butt' : null);
+
+    const aggregateEdges = edges(graphData).filter(d => d.isAggregateEdge);
+    if (aggregateEdges.length > 0) {
+        // Aggregate edges can be very short. Keep the wide invisible click
+        // target below nodes so it does not steal normal node interactions.
+        ctrInstance.append('g')
+            .attr('class', 'aggregate-edge-hit-areas')
+            .attr('fill', 'none')
+            .selectAll('path')
+            .data(aggregateEdges)
+            .join('path')
+            .attr('class', 'aggregate-edge-hit-area')
+            .attr('data-edge-id', d => d.id)
+            .attr('d', link)
+            .style('stroke', 'transparent')
+            .style('stroke-width', d => Math.max((d.edgeStrokeWidth ?? strokeWidth) + 14, 18))
+            .style('pointer-events', 'stroke')
+            .style('cursor', 'pointer');
+    }
 
     // Draw events
     const events = ctrInstance.append('g')
@@ -81,7 +141,11 @@ function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAcc
     const eventGroups = events.selectAll('g')
         .data(nodes(graphData))
         .join('g')
-        .attr('class', 'instance-node-group')
+        .attr('class', d => [
+            'instance-node-group',
+            d.isAggregateNode ? 'aggregate-node-group' : '',
+            d.comparisonLayer ? `comparison-layer-${d.comparisonLayer}` : '',
+        ].filter(Boolean).join(' '))
         .attr('data-event-id', d => d.id)
         .attr('data-shared', d => String(Boolean(d.isShared)))
         .attr('transform', d => `translate(${xScale(xAccessor(d))},${yScale(yAccessor(d))})`);
@@ -131,7 +195,7 @@ function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAcc
                     startAngle,
                     endAngle,
                 }))
-                .style('fill', getEntityColor(membership.entityType))
+                .style('fill', d.aggregateGroupColor ?? getEntityColor(membership.entityType))
                 .style('stroke', '#ffffff')
                 .style('stroke-width', 0.9)
                 .style('opacity', 0.98)
@@ -156,12 +220,6 @@ function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAcc
         /*判断要不要挂badge*/
         const relationCount = d.expandableRelationCount ?? d.expandableRelationMemberships?.length ?? 0;
         if (relationCount <= 0) return;
-
-        /*不希望展开出来的真正 Offer / Workflow 节点右上角还挂一个badge*/
-        const hasTrueLifecycleMembership = (d.ringEntityMemberships ?? []).some((membership) => (
-            membership.entityType === "Offer" || membership.entityType === "Workflow"
-        ));
-        if (hasTrueLifecycleMembership) return;
 
         const badge = d3.select(this)
             .append('g')
@@ -219,6 +277,37 @@ function renderInstanceGraph(graphData, link, container, xAccessor, xScale, yAcc
         .attr('activity', actAccessor)
         .attr('timestamp', timeAccessor)
         .attr('resource', resAccessor);
+
+    eventGroups
+        .filter(d => d.isAggregateNode)
+        .append('text')
+        .attr('class', 'aggregate-node-count')
+        .attr('x', 10)
+        .attr('y', -7)
+        .text(d => `×${d.aggregateCount ?? 1}`);
+
+    const aggregateArrowheads = aggregateEdges
+        .map(edgeDatum => ({
+            ...edgeDatum,
+            arrowGlyph: makeAggregateArrowGlyph(edgeDatum, link),
+        }))
+        .filter(edgeDatum => edgeDatum.arrowGlyph);
+
+    if (aggregateArrowheads.length > 0) {
+        ctrInstance.append('g')
+            .attr('class', 'aggregate-edge-arrowheads')
+            .style('pointer-events', 'none')
+            .selectAll('path')
+            .data(aggregateArrowheads)
+            .join('path')
+            .attr('class', 'aggregate-edge-arrowhead')
+            .attr('d', d => d.arrowGlyph)
+            .style('fill', d => d.edgeColor ?? getEntityColor(d.perspective ?? d.entity))
+            .style('fill-opacity', 0.95)
+            .style('stroke', '#ffffff')
+            .style('stroke-width', 0.8)
+            .style('stroke-linejoin', 'round');
+    }
 }
 
-export { renderInstanceGraph };
+export { makeAggregateArrowGlyph, renderInstanceGraph };
